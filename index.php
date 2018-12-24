@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>產品</h3>
-      <a href="./product/product_search.html">查詢產品資料、庫存數量(product_search.html)<br/></a>
+      <a href="./product/product_search.html">新增、查詢產品資料(product_search.html)<br/></a>
       <a href="./product/product_change.html">修改、刪除產品資料(product_change.html)</a>
     </div>
     <div class="col-sm-6">
@@ -33,13 +33,13 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>供應商、客戶</h3>
-      <a href="./company/company_search.html">查詢買、賣家資料<br/></a>
-      <a href="./company/company_change.html">更改、刪除買、賣家資料</a>
+      <a href="./company/company_search.html">新增、查詢買/賣家資料<br/></a>
+      <a href="./company/company_change.html">更改、刪除買/賣家資料</a>
     </div>
     <div class="col-sm-6">
       <h3>便捷查詢</h3>
       <a href="./search/search_deadline.html">便捷查詢即期產品(search_deadline.html)<br/></a>
-      <a href="./search/search_stcok.html">便捷查詢庫存(search_stock.html)</a>
+      <a href="./search/search_stock.html">便捷查詢庫存(search_stock.html)</a>
     </div>
   </div>
 </div>
