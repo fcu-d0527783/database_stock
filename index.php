@@ -21,13 +21,13 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>產品</h3>
-      <a href="./product/product_search.html">新增、查詢產品資料(product_search.html)<br/></a>
-      <a href="./product/product_change.html">修改、刪除產品資料(product_change.html)</a>
+      <a href="./product/product_search.html">新增、查詢產品資料<br/></a>
+      <a href="./product/product_change.html">修改、刪除產品資料</a>
     </div>
     <div class="col-sm-6">
       <h3>進、出貨</h3>
-      <a href="./order/order_search.html">新增、查詢進出貨單(orderin.html)<br/></a>
-      <a href="./order/order_change.html">修改、刪除進出貨單(orderout.html)</a>
+      <a href="./order/order_search.html">新增、查詢進出貨單<br/></a>
+      <a href="./order/order_change.html">修改、刪除進出貨單</a>
     </div>
   </div>
   <div class="row">
@@ -38,8 +38,8 @@
     </div>
     <div class="col-sm-6">
       <h3>便捷查詢</h3>
-      <a href="./search/search_deadline.html">便捷查詢即期產品(search_deadline.html)<br/></a>
-      <a href="./search/search_stock.html">便捷查詢庫存(search_stock.html)</a>
+      <a href="./search/search_deadline.html">便捷查詢即期產品<br/></a>
+      <a href="./search/search_stock.html">便捷查詢庫存</a>
     </div>
   </div>
 </div>
