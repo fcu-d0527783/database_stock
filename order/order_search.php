@@ -28,7 +28,8 @@
       die("Connection failed: " . mysqli_connect_error());
   }
 
-  $No = $_POST["SONo"];
+  $SONo = $_POST["SONo"];
+  $PONo = $_POST["PONo"];
   $date = $_POST["Date"];
   $client = $_POST["ClientCode"];
   $supplier = $_POST["SupplierCode"];
@@ -39,22 +40,48 @@
     insert($_POST["order"]);
   }
   else if($_POST["buttonType"] == 'Search'){
-    serach($_POST["order"]);
+    search($_POST["order"]);
   }
   else{
     echo "Error";
   }
 
-
-
-
   function insert($type){
-    echo $type;
+    if($type == "purchase"){
+
+    }
+    else if($type == "sale"){
+
+    }
   }
 
   function search($type){
-    echo $type;
-    $sql0 = "select * from purchase_order   ";
+    global $conn,$PONo;
+    if($type == "purchase"){
+      $sql_s_p = "select * from purchase_order where PONo = '".$PONo."';";
+      $result_s_p = mysqli_query($conn, $sql_s_p);
+      if(mysqli_num_rows($result_s_p) > 0){
+        while($row = mysqli_fetch_assoc($result_s_p)){
+          echo
+          "<table class=\"table\">
+          <thead>
+          <tr>
+          <th>Purchase Order</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr> <td>PNo : </td><td>".$row["PONo"]."</td></tr>
+          <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
+          <tr> <td>SupplierCode :</td><td>".$row["SupplierCode"]."</td></tr>
+          <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
+          </tbody>
+          </table>";
+        }
+      }
+    }
+    else if($type == "sale"){
+
+    }
   }
 ?>
 </div>
