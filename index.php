@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>主頁</title>
@@ -39,7 +39,7 @@
     <div class="col-sm-6">
       <h3>便捷查詢</h3>
       <a href="./search/search_deadline.html">便捷查詢即期產品(search_deadline.html)<br/></a>
-      <a href="./search/search_stcok.html">便捷查詢庫存</a>
+      <a href="./search/search_stcok.html">便捷查詢庫存(search_stock.html)</a>
     </div>
   </div>
 </div>
