@@ -1,0 +1,47 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+  <title>主頁</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<div class="jumbotron">
+    <h1>便捷查詢</h1>
+    <p>便捷查詢即期產品</p> 
+    <p>便捷查詢庫存</p> 
+  </div>
+	<form action="company.php" method="post">
+		<table class="table">
+		<thead>
+		    <tr>
+		    	<th>Company Detail</th>
+		    </tr>
+	     </thead>
+	     <tbody>
+	     	<tr> <td><input type="radio" name="company" value="supplier"> Supplier</td>
+	     			<td><input type="radio" name="company" value="client"> Client</td></tr>
+			<tr> <td>Code: </td> <td><input type="text" name="Code" ><br> </td></tr>
+			<tr> <td>Company Name:</td> <td><input type="text" name="CompanyName" ><br></td></tr>
+			<tr> <td>Address:</td> <td><input type="text" name="Address" ><br></td></tr>
+			<tr> <td>Contact Number:</td> <td><input type="text" name="ContactNo" ><br></td></tr>
+			<tr> <td>Email:</td> <td><input type="text" name="Email" ><br></td></tr>
+			<tr> <td>Remark:</td> <td><input type="text" name="Remark" ><br></td></tr>
+			<tr> <td><input type="reset" value="Reset"></td>
+					<td><input type="submit" name="Create" value="Create"></td><tr>
+		</tbody>
+		</table>
+	</form>
+</div>
+
+</body>
+</html>
