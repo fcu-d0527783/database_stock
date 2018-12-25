@@ -46,11 +46,11 @@
   function search($type){
     global $conn,$ItemCode;
     $getDate = date("y-m-d");
-    echo $getDate;
+   // echo $getDate;
     if($type == "Seven Days"){
       $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
       $result_deadline = mysqli_query($conn, $sql_deadline);
-      if(mysqli_num_rows($result_deadline) - $getDate <= 7 ){
+      if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 7*86400 ){
         while($row = mysqli_fetch_assoc($result_deadline)){
           echo
           "<table class=\"table\">
@@ -72,7 +72,7 @@
     else if($type == "Fifteen Days"){
         $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
         $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(mysqli_num_rows($result_deadline) - $getDate <= 15 ){
+        if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 15*86400 ){
             while($row = mysqli_fetch_assoc($result_deadline)){
                 echo
                 "<table class=\"table\">
@@ -94,7 +94,7 @@
     else if($type == "One Month"){
         $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
         $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(mysqli_num_rows($result_deadline) - $getDate <= 30 ){
+        if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 30*86400 ){
             while($row = mysqli_fetch_assoc($result_deadline)){
                 echo
                 "<table class=\"table\">
@@ -115,7 +115,7 @@
     }else if($type == "Three Months"){
         $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
         $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(mysqli_num_rows($result_deadline) - $getDate <= 90 ){
+        if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 90*86400 ){
             while($row = mysqli_fetch_assoc($result_deadline)){
                 echo
                 "<table class=\"table\">
