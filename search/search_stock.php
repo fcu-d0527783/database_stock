@@ -31,7 +31,9 @@
   $ItemCode = $_POST["ItemCode"];
   $ExpiredDate = $_POST["ExpiredDate"];
   $BatchNo = $_POST["BatchNo"];
-
+  $InQty = $_POST["InQty"];
+  $OutQty = $_POST["OutQty"];
+  
 
   //button "search"
  
