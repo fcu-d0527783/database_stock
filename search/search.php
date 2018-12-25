@@ -46,7 +46,7 @@
   function search($type){
     global $conn,$ItemCode;
     $getDate = date("y-m-d");
-    //
+    /*
     echo $getDate;
     $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
     $result_deadline = mysqli_query($conn, $sql_deadline);
@@ -69,7 +69,7 @@
           </tbody>
           </table>";
         }
-    //
+    */
     if($type == "Seven Days"){
       $sql_deadline = "select * from batch where ItemCode = '".$ItemCode."';" ;
       $result_deadline = mysqli_query($conn, $sql_deadline);
