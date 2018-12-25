@@ -18,28 +18,31 @@
     <h1>進、出貨</h1><br/>
     <p>=>&nbsp;新增、查詢進出貨單</p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="./order_change.html">修改、删除進出貨單</a></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p>
   </div>
 	<form action="order_search.php" method="post">
 		<table class="table">
-		<thead>
+		  <thead>
 		    <tr>
 		    	<th>Order Detail</th>
 		    </tr>
-	     </thead>
+    	  <tr><td>When Search chooing one element from elements with *</td>
+        <td>When Insert every element need input</td></tr>
+	    </thead>
 	     <tbody>
 	     	<tr>
             <td><input type="radio" name="order" value="purchase" id="purchase">&nbsp;Purcahse_Order</td>
 	     			<td><input type="radio" name="order" value="sale" id="sale">&nbsp;Sale_Order</td></tr>
 			<tr id="s" class="hide">            <td>SONo:</td>        <td><input type="text" name="SONo"><br> </td></tr>
-      <tr id="p" class="hide">            <td>PONo:</td>        <td><input type="text" name="PONo"><br> </td></tr>
+      <tr id="p" class="hide">            <td>*PONo:</td>        <td><input type="text" name="PONo"><br> </td></tr>
 			<tr>                                <td>Date:</td>        <td><input type="text" name="Date" ><br></td></tr>
 			<tr>                                <td>ItemCode:</td>    <td><input type="text" name="ItemCode"><br></td></tr>
   		<tr>                                <td>BatchNo:</td>     <td><input type="text" name="BatchNo" ><br></td></tr>
 			<tr class="hide" id="expired_date"> <td>ExpiredDate:</td> <td><input type="text" name="ExpiredDate" ><br></td></tr>
 			<tr>                                <td>Quntity:</td>     <td><input type="text" name="Qty" ><br></td></tr>
 			<tr class="hide" id="client">       <td>ClientCode:</td>  <td><input type="text" name="ClientCode" ><br></td></tr>
-			<tr class="hide" id="supplier">     <td>SupplierCode:</td><td><input type="text" name="SupplierCode" ><br></td></tr>
-			<tr>                                <td>EmployeeCode:</td><td><input type="text" name="EmployeeCode" ><br></td></tr>
+			<tr class="hide" id="supplier">     <td>*SupplierCode:</td><td><input type="text" name="SupplierCode" ><br></td></tr>
+			<tr>                                <td>*EmployeeCode:</td><td><input type="text" name="EmployeeCode" ><br></td></tr>
 			<tr> <td><input type="reset" value="Reset" id="reset"></td>
 					 <td><input type="submit" name="buttonType" value="Insert" class="hide" id="insertbtn"></td>
     			 <td><input type="submit" name="buttonType" value="Search" class="hide" id="searchbtn"></td><tr>

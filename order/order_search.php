@@ -127,6 +127,11 @@
         $sql_s_p = "select * from purchase_order AS P, po_detail AS D where P.EmployeeCode = '".$employee."' AND P.PONo = D.PONo;";
         $result_s_p = mysqli_query($conn, $sql_s_p);
       }
+      else{
+        echo "<script>
+                 alert('Nothing input');
+            </script>";
+      }
 
       if(mysqli_num_rows($result_s_p) > 0){
         echo
