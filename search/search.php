@@ -46,8 +46,9 @@
   function search($type){
     global $conn,$ItemCode;
     $getDate = date("y-m-d");
-    /*
+    
     echo $getDate;
+    /*
     $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
     $result_deadline = mysqli_query($conn, $sql_deadline);
     $sql_ItemCode = "select * from batch AS B , produce AS P where ItemCode = '".$ItemCode."' AND B.ItemCode = p.ItemCode;" ;
@@ -70,11 +71,12 @@
           </table>";
         }
     */
+    $sql_deadline = $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
     if($type == "Seven Days"){
-      $sql_deadline = "select * from batch where ItemCode = '".$ItemCode."';" ;
-      $result_deadline = mysqli_query($conn, $sql_deadline);
-      if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 7*86400 ){
-        while($row = mysqli_fetch_assoc($result_deadline)){
+      $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
+      $result_d = mysqli_query($conn, $sql_d);
+      if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
+        while($row = mysqli_fetch_assoc($result_d)){
           echo
           "<table class=\"table\">
           <thead>
