@@ -79,34 +79,94 @@
   }
 
   function search($type){
-    global $conn,$PONo,$SONo;
+    global $conn,$PONo,$SONo,$client,$supplier,$employee;
     if($type == "purchase"){
       //search_purchase
-      $sql_s_p = "select * from purchase_order AS P, po_detail AS D where P.PONo = '".$PONo."' AND P.PONo = D.PONo;";
-      $result_s_p = mysqli_query($conn, $sql_s_p);
-      if(mysqli_num_rows($result_s_p) > 0){
-        while($row = mysqli_fetch_assoc($result_s_p)){
+      if(!empty($PONo)){
+        $sql_s_p = "select * from purchase_order AS P, po_detail AS D where P.PONo = '".$PONo."' AND P.PONo = D.PONo;";
+        $result_s_p = mysqli_query($conn, $sql_s_p);
+        if(mysqli_num_rows($result_s_p) > 0){
           echo
           "<table class=\"table\">
-          <thead>
           <tr>
           <th>Purchase Order</th>
           </tr>
-          </thead>
-          <tbody>
-          <tr> <td>PONo : </td><td>".$row["PONo"]."</td></tr>
-          <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
-          <tr> <td>ItemCode :</td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>Quantity :</td><td>".$row["Qty"]."</td></tr>
-          <tr> <td>SupplierCode :</td><td>".$row["SupplierCode"]."</td></tr>
-          <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
+            <tbody>
+          <tr> <td>PONo</td> <td>Date</td> <td>ItemCode</td> <td>BatchNo</td> <td>Quantity</td>  <td>SupplierCode</td> <td>EmployeeCode</td> </tr>
+           ";
+          while($row = mysqli_fetch_assoc($result_s_p)){
+            echo
+            "
+            <td>".$row["PONo"]."</td><td>".$row["Date"]."</td> <td>".$row["ItemCode"]."</td> <td>".$row["BatchNo"]."</td>
+            <td>".$row["Qty"]."</td><td>".$row["SupplierCode"]."</td><td>".$row["EmployeeCode"]."</td></tr>
+            ";
+          }
+          echo"
           </tbody>
           </table>";
         }
+        else{
+          echo "Search failed";
+        }
+      }
+      else if(!empty($supplier)){
+        $sql_s_p = "select * from purchase_order AS P, po_detail AS D where P.PONo = '".$PONo."' AND P.PONo = D.PONo;";
+        $result_s_p = mysqli_query($conn, $sql_s_p);
+        if(mysqli_num_rows($result_s_p) > 0){
+          while($row = mysqli_fetch_assoc($result_s_p)){
+            echo
+            "<table class=\"table\">
+            <thead>
+            <tr>
+            <th>Purchase Order</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr> <td>PONo : </td><td>".$row["PONo"]."</td></tr>
+            <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
+            <tr> <td>ItemCode :</td><td>".$row["ItemCode"]."</td></tr>
+            <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
+            <tr> <td>Quantity :</td><td>".$row["Qty"]."</td></tr>
+            <tr> <td>SupplierCode :</td><td>".$row["SupplierCode"]."</td></tr>
+            <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
+            </tbody>
+            </table>";
+          }
+        }
+        else{
+          echo "Search failed";
+        }
+      }
+      else if(!empty($employee)){
+        $sql_s_p = "select * from purchase_order AS P, po_detail AS D where P.PONo = '".$PONo."' AND P.PONo = D.PONo;";
+        $result_s_p = mysqli_query($conn, $sql_s_p);
+        if(mysqli_num_rows($result_s_p) > 0){
+          while($row = mysqli_fetch_assoc($result_s_p)){
+            echo
+            "<table class=\"table\">
+            <thead>
+            <tr>
+            <th>Purchase Order</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr> <td>PONo : </td><td>".$row["PONo"]."</td></tr>
+            <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
+            <tr> <td>ItemCode :</td><td>".$row["ItemCode"]."</td></tr>
+            <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
+            <tr> <td>Quantity :</td><td>".$row["Qty"]."</td></tr>
+            <tr> <td>SupplierCode :</td><td>".$row["SupplierCode"]."</td></tr>
+            <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
+            </tbody>
+            </table>";
+          }
+        }
+        else{
+          echo "Search failed";
+        }
       }
       else{
-        echo "Search failed";
+        echo"error";
       }
     }
     else if($type == "sale"){
