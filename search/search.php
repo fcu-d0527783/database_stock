@@ -56,7 +56,7 @@
             while($row = mysqli_fetch_assoc($result_d)){
  
                 
-           $days=round(($row["ExpiredDate"]-$getDate)/3600/24) ;
+           $days=($row["ExpiredDate"]-$getDate)/3600/24 ;
            echo $days;
 
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
