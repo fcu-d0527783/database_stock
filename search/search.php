@@ -55,8 +55,7 @@
         
             while($row = mysqli_fetch_assoc($result_d)){
  
-           echo     strtotime($row["ExpiredDate"]);
-           echo   strtotime($getDate);
+           echo     strtotime($row["ExpiredDate"])- strtotime($getDate);
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
                   echo
                 "<table class=\"table\">
