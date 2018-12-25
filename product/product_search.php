@@ -25,7 +25,7 @@ $Brand = $_POST['Brand'];  //echo $Brand;
 $ItemType = $_POST['ItemType'];  //echo $ItemType;
 $wBatch = $_POST['wBatch']; 
 $Location = $_POST['Location'];
-$isWatch = $_POST['isWatch'];
+$isActive = $_POST['isActive'];
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -47,7 +47,7 @@ else{
 
 
 function insert(){
-    global $conn,$ItemCode,$ItemDescription,$isWatch, $wBatch, $Brand,$ItemType,$Location;
+    global $conn,$ItemCode,$ItemDescription,$isActive, $wBatch, $Brand,$ItemType,$Location;
     $sql = "insert into product
             values ('".$ItemCode."', '".$ItemDescription."', '".$ItemType."', '".$Brand."', '".$Location."', '".$isActive."','".$wBatch."');";
     if ($conn->query($sql) === TRUE) {
@@ -66,7 +66,7 @@ function insert(){
 }
 
 function search(){
-    global $conn,$ItemCode,$ItemDescription, $isWatch, $wBatch, $Brand,$ItemType,$Location;
+    global $conn,$ItemCode,$ItemDescription, $isActive, $wBatch, $Brand,$ItemType,$Location;
     if($ItemType && $Brand){
         $sql1 = "select * from product
          where Brand like '%".$Brand."%' AND ItemType like '%".$ItemType."%';";
@@ -86,23 +86,36 @@ function search(){
         $sql1 = "select * from product
          where ItemType like '%".$ItemType."%' AND Location like '%".$Location."%';";
     }
+    
+    else if($Location){
+        $sql1 = "select * from product
+         where Location like '%".$Location."%';";
+    }
       
     else if($Brand){
         $sql1 = "select * from product where Brand like '%".$Brand."%';";
     } 
     else if($ItemCode){
-        $sql1 = "select * from product where p.ItemCode = '".$ItemCode."';";
+        $sql1 = "select * from product where ItemCode like '%".$ItemCode."%';";
     }
     
     else if($ItemType){
-        $sql1 = "select * from product where ItemType = '".$ItemType."';";           
+        $sql1 = "select * from product where ItemType like '%".$ItemType."%';";           
     } 
     
     else if($ItemDescription){
-        $sql1 = "select * from product where ItemDescription = '".$ItemDescription."';";   
+        $sql1 = "select * from product where ItemDescription like '%".$ItemDescription."%';";   
     }  
       
-
+    else if($isActive){
+        $sql1 = "select * from product where isActive = '".$isActive."';";
+    }
+    
+    else if($wBatch){
+        $sql1 = "select * from product where wBatch = '".$wBatch."';";
+    }
+    
+    
     $result1 = mysqli_query($conn, $sql1);
     if (mysqli_num_rows($result1) > 0) {
         echo 

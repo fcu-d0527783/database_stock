@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>主頁</title>
+  <title>供應商、客戶管理</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -16,10 +16,11 @@
 <div class="container">
 	<div class="jumbotron">
     <h1>供應商、客戶管理</h1>
-    <p>查詢買賣家資料</p> 
-    <p>更改、刪除買賣家資料</p> 
+    <p>=>&nbsp;更改、刪除買賣家資料</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="./company_search.html">新增、查詢買賣家資料</a></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p>
   </div>
-	<form action="company.php" method="post">
+	<form action="company_change.php" method="post">
 		<table class="table">
 		<thead>
 		    <tr>
@@ -36,7 +37,8 @@
 			<tr> <td>Email:</td> <td><input type="text" name="Email" ><br></td></tr>
 			<tr> <td>Remark:</td> <td><input type="text" name="Remark" ><br></td></tr>
 			<tr> <td><input type="reset" value="Reset"></td>
-					<td><input type="submit" name="Create" value="Create"></td><tr>
+			     <td><input type="submit" name="buttonType" value="Update" ></td>
+				 <td><input type="submit" name="buttonType" value="Delete"></td><tr>
 		</tbody>
 		</table>
 	</form>
