@@ -46,9 +46,29 @@
   function search($type){
     global $conn,$ItemCode;
     $getDate = date("y-m-d");
-   // echo $getDate;
+    echo $getDate;
+    $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
+    $result_deadline = mysqli_query($conn, $sql_deadline);
+    
+        while($row = mysqli_fetch_assoc($result_deadline)){
+            echo
+            "<table class=\"table\">
+          <thead>
+          <tr>
+          <th>Search Deadline</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
+          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
+          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
+        
+          </tbody>
+          </table>";
+        }
+    
     if($type == "Seven Days"){
-      $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
+      $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
       $result_deadline = mysqli_query($conn, $sql_deadline);
       if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 7*86400 ){
         while($row = mysqli_fetch_assoc($result_deadline)){
@@ -70,7 +90,7 @@
       }
     }
     else if($type == "Fifteen Days"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
+        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
         $result_deadline = mysqli_query($conn, $sql_deadline);
         if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 15*86400 ){
             while($row = mysqli_fetch_assoc($result_deadline)){
@@ -92,7 +112,7 @@
         }
     }
     else if($type == "One Month"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
+        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
         $result_deadline = mysqli_query($conn, $sql_deadline);
         if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 30*86400 ){
             while($row = mysqli_fetch_assoc($result_deadline)){
