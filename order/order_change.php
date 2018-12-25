@@ -32,6 +32,7 @@
   $PONo = $_POST["PONo"];
   $itemcode = $_POST["ItemCode"];
   $batch = $_POST["BatchNo"];
+  $expiredDate = $_POST["ExpiredDate"];
   $qty = $_POST["Qty"];
   $date = $_POST["Date"];
   $client = $_POST["ClientCode"];
@@ -50,8 +51,34 @@
   }
 
   function update($type){
-    global $conn,$PONo,$SONo,$date,$itemcode,$batch,$qty,$client,$supplier,$employee;
+    global $conn,$PONo,$SONo,$date,$itemcode,$batch,$qty,$client,$supplier,$employee,$expiredDate;
     if($type == "purchase"){
+      if(!empty($PONo)){
+        if(!empty($date)){
+
+        }
+        else if(!empty($itemcode)){
+
+        }
+        else if(!empty($batch)){
+
+        }
+        else if(!empty($expiredDate)){
+
+        }
+        else if(!empty($qty)){
+
+        }
+        else if(!empty($supplier)){
+
+        }
+        else if(!empty($employee)){
+
+        }
+      }
+      else{
+        echo"No PONo";
+      }
       //update_purchase_order
       $sql_u_po = "insert into purchase_order values ('".$PONo."', '".$date."', '".$supplier."', '".$employee."');";
       //update_po_detail
