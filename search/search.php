@@ -54,8 +54,11 @@
         $result_d = mysqli_query($conn, $sql_d);
         
             while($row = mysqli_fetch_assoc($result_d)){
- 
-           echo     (strtotime($row["ExpiredDate"])- strtotime($getDate))/86400;
+            //1970-01-01
+           echo  $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+           echo $difff = strtotime($diff);
+           echo $difff/86400;
+
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
                   echo
                 "<table class=\"table\">

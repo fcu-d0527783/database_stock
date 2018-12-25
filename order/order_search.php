@@ -32,7 +32,6 @@
   $PONo = $_POST["PONo"];
   $itemcode = $_POST["ItemCode"];
   $batch = $_POST["BatchNo"];
-  $expiredDate = $_POST["ExpiredDate"];
   $qty = $_POST["Qty"];
   $date = $_POST["Date"];
   $client = $_POST["ClientCode"];
@@ -51,63 +50,31 @@
   }
 
   function insert($type){
-    global $conn,$PONo,$SONo,$date,$itemcode,$batch,$qty,$client,$supplier,$employee,$expiredDate;
+    global $conn,$PONo,$SONo,$date,$itemcode,$batch,$qty,$client,$supplier,$employee;
     if($type == "purchase"){
       //insert_purchase_order
       $sql_i_po = "insert into purchase_order values ('".$PONo."', '".$date."', '".$supplier."', '".$employee."');";
       //insert_po_detail
       $sql_i_pd = "insert into po_detail values ('".$PONo."', '".$itemcode."', '".$batch."', '".$qty."');";
-      //insert_batch
-      $sql_i_batch = "insert into batch values ('".$batch."', '".$itemcode."', '".$expiredDate."');";
-
       $result_po = mysqli_query($conn, $sql_i_po);
-      $result_pbatch = mysqli_query($conn, $sql_i_batch);
       $result_pd = mysqli_query($conn, $sql_i_pd);
 
-      if ($result_po && $result_pd && $result_pbatch) {
+      if ($conn->query($sql_i_pd) == TRUE && $conn->query($sql_i_po) == TRUE) {
           echo "<script>
                    alert('New record created successfully');
                    window.history.go(-1);
               </script>";
-      }
-      else {
+      } else {
           echo "<script>
                    alert('Error : Failed to create new record');
                      window.history.go(-1);
-              </script>" ;
+              </script>";
+          //echo "Error: ".$sql."<br>'.$conn->error;
+
       }
     }
     else if($type == "sale"){
-      //insert_sale_order
-      $sql_i_so = "insert into sale_order values ('".$SONo."', '".$date."', '".$client."', '".$employee."');";
-      //insert_so_detail
-      $sql_i_sd = "insert into so_detail values ('".$SONo."', '".$itemcode."', '".$batch."', '".$qty."');";
-      //check Quantity
-      $sql_q = "select Balance
-                from stkbalancebybatch
-                where ItemCode ='".$itemcode."' AND BatchNo = '".$batch."';";
-      $result = mysqli_query($conn, $sql_q);
-      $row = mysqli_fetch_assoc($result);
-      if($row['Balance'] >= $qty){
-        $result_so = mysqli_query($conn, $sql_i_so);
-        $result_sd = mysqli_query($conn, $sql_i_sd);
 
-        if ($result_so && $result_sd) {
-            echo "<script>
-                     alert('New record created successfully');
-                     window.history.go(-1);
-                </script>";
-        }
-        else {
-            echo "<script>
-                     alert('Error : Failed to create new record');
-                       window.history.go(-1);
-                </script>" ;
-        }
-      }
-      else{
-        echo "Error! LOW STOCK";
-      }
     }
   }
 
@@ -127,12 +94,6 @@
         $sql_s_p = "select * from purchase_order AS P, po_detail AS D where P.EmployeeCode = '".$employee."' AND P.PONo = D.PONo;";
         $result_s_p = mysqli_query($conn, $sql_s_p);
       }
-      else{
-        echo "<script>
-                 alert('Nothing input');
-            </script>";
-      }
-
       if(mysqli_num_rows($result_s_p) > 0){
         echo
         "<table class=\"table\">

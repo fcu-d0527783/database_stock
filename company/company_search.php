@@ -51,60 +51,80 @@ else{
 
 function insert($type){
     global $conn,$code,$name,$addr,$cnum,$remark,$email;   
-    $sql = "insert into ".$type." values ('".$code."', '".$name."', '".$addr."', '".$cnum."', '".$email."', '".$remark."');";
+    $sql = "insert into '".$type."' values ('".$code."', '".$name."', '".$addr."', '".$cnum."', '".$email."', '".$remark."');";
         //$result = mysqli_query($conn, $sql);
-    echo $sql;   
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>
-             alert('New record created successfully');
-             window.history.go(-1);
-        </script>";
-    } else {
-        echo "<script>
-             alert('Error : Failed to create new record');
-               window.history.go(-1);
-        </script>";
-        //echo "Error: ".$sql."<br>'.$conn->error;
-        
-    }
+    echo $sql;         
 }
 
 function search($type){
     global $conn,$code;
-    if($type == "supplier"){               
-        $sql0 = "select * from supplier where SupplierCode = '".$code."';";                
+    if($type == "supplier"){          
+        
+        $sql1 = "select * from supplier where SupplierCode = '".$code."';";
+        $result1 = mysqli_query($conn, $sql1);
+        if(mysqli_num_rows($result1) > 0){
+            while($row = mysqli_fetch_assoc($result1)){
+                echo
+                "<table class=\"table\">
+            <thead>
+            <tr>
+            <th>Supplier Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr> <td>Client Code : </td><td>".$row["SupplierCode"]."</td></tr>
+            <tr> <td>Company Name :</td><td>".$row["CompanyName"]."</td></tr>
+            <tr> <td>Address :</td><td>".$row["Address"]."</td></tr>
+            <tr> <td>Contact Number :</td><td>".$row["ContactNo"]."</td></tr>
+            <tr> <td>Email :</td><td>".$row["Email"]."</td></tr>
+            <tr> <td>Remark :</td><td>".$row["Remark"]."</td></tr>
+            </tbody>
+            </table>";
+            }
+        } else {
+            echo "Failed to create Supplier record";
+          }
     }
     else if($type == "client"){
         $sql0 = "select * from client where ClientCode = '".$code."';";
-    }
-    $result0 = mysqli_query($conn, $sql0);
-    if (mysqli_num_rows($result0) > 0 ) {
-        echo
-        "<table class=\"table\">
+        $result0 = mysqli_query($conn, $sql0);
+        if (mysqli_num_rows($result0) > 0 ) {
+            while($row = mysqli_fetch_assoc($result0)) {
+                echo            
+            "<table class=\"table\">
             <thead>
             <tr>
             <th>Client Detail</th>
             </tr>
             </thead>
             <tbody>
-            <tr> <td>Client Code </td> <td>Company Name </td> <td>Address </td> <td>Contact Number </td> <td>Email </td>  <td>Remark </td> </tr> ";
-    
-       while($row = mysqli_fetch_assoc($result0)) {
-            echo
-            "
-            <td>".$row['ClientCode']."</td><td>".$row['CompanyName']."</td><td>".$row['Address']."</td><td>".$row['ContactNo']."</td><td>".$row['Email']."</td><td>".$row['Remark']."</td></tr>
+            <tr> <td>Client Code : </td><td>".$row["ClientCode"]."</td></tr>
+            <tr> <td>Company Name :</td><td>".$row["CompanyName"]."</td></tr>
+            <tr> <td>Address :</td><td>".$row["Address"]."</td></tr>
+            <tr> <td>Contact Number :</td><td>".$row["ContactNo"]."</td></tr>
+            <tr> <td>Email :</td><td>".$row["Email"]."</td></tr>
+            <tr> <td>Remark :</td><td>".$row["Remark"]."</td></tr>
             </tbody>
             </table>";
-       }
-       echo"
-       </tbody>
-       </table>";
-    }else {
-        echo "Failed to search Client record";
+            }
+        }else {
+            echo "Failed to create Client record";
+        }
+        
     }
-    
 }
 
+
+/*
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "Client Code: " . $row["ClientCode"]. " - Company Name: " . $row["CompanyName"]. " - Address: " . $row["Address"]. " - Contact Number: " . $row["ContactNo"]. " - Email: " . $row["Email"]. " - Remark: " . $row["Remark"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+*/
 mysqli_close($conn);
 ?> 
 </div>
