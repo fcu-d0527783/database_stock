@@ -55,10 +55,10 @@
         
             while($row = mysqli_fetch_assoc($result_d)){
  
-           echo     (strtotime($row["ExpiredDate"])- strtotime($getDate))/86400;
+           $deadline = (strtotime($row["ExpiredDate"])- strtotime($getDate))/86400;
            echo "******************";
-           echo  strtotime($getDate)/86400;
-           echo date("Y-m-d H:i:s",strtotime($getDate));
+           
+           echo date("Y-m-d ",strtotime($deadline));
 
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
                   echo
