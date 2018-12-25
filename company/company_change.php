@@ -120,12 +120,12 @@ function update($type){
     }
     if ($conn->query($sql0) === TRUE) {
         echo "<script>
-             alert('Record deleted successfully');
+             alert('Record update successfully');
              window.history.go(-1);
             </script>";
     } else {
         echo "<script>
-             alert('Error : Failed to delete record');
+             alert('Error : Failed to update record');
                window.history.go(-1);
         </script>";
         //echo "Error: ".$sql."<br>'.$conn->error;

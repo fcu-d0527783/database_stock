@@ -20,7 +20,7 @@ $username = "root";
 $password = "";
 $dbname = "stock";
 //$type = $_POST["product"];  //echo $type;
-$ItemCode = $_POST["ItemCode"];  //echo $ItemCode;
+$ItemCode = $_POST["ItemCode"];  //echo $ItemItemCode;
 $ItemDescription = $_POST["ItemDescription"];  //echo $ItemDescription;
 $ItemType = $_POST["ItemType"];  //echo $ItemType;
 $Brand = $_POST["Brand"];  //echo $Brand;
@@ -33,64 +33,80 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-/*
-// sql statement
-$sql = "insert into ".$type." values ('".$code."', '".$name."', '".$addr."', '".$cnum."', '".$email."', '".$remark."');";
-//$result = mysqli_query($conn, $sql);
-if ($conn->query($sql) === TRUE) {
-    echo "<script>
-             alert('New record created successfully');
+
+if($_POST["buttonType"] == 'Update'){
+    update();
+}
+else if($_POST["buttonType"] == 'Delete'){
+    delete();
+}
+else{
+    echo "Error";
+}
+
+function update(){
+    global $conn,$ItemCode,$ItemDescription,$isActive, $wBatch, $Brand,$ItemType,$Location;
+    
+    if($ItemDescription){
+        $sql0 = "update product set ItemDescription = '".$ItemDescription."' where ItemCode like '%".$ItemCode."%';";
+    }
+    else if($ItemType) {
+        $sql0 = "update product set ItemType = '".$ItemType."' where ItemCode like '%".$ItemCode."%';";
+    }
+    else if($Brand) {
+        $sql0 = "update product set Brand = '".$Brand."' where ItemCode like '%".$ItemCode."%';";
+    }
+    else if($Location) {
+        $sql0 = "update product set Location = '".$Location."' where ItemCode like '%".$ItemCode."%';";
+    }
+    else if($isActive) {
+        $sql0 = "update product set isActive = '".$isActive."' where ItemCode like '%".$ItemCode."%';";
+    }
+    else if($wBatch) {
+        $sql0 = "update product set wBatch = '".$wBatch."' where ItemCode like '%".$ItemCode."%';";
+    }
+    
+    if ($conn->query($sql0) === TRUE) {
+        echo "<script>
+             alert('Record update successfully');
              window.history.go(-1);
-        </script>";
-} else {
-    echo "<script>
-             alert('Error : Failed to create new record');
+            </script>";
+    } else {
+        echo "<script>
+             alert('Error : Failed to update record');
                window.history.go(-1);
         </script>";
-    //echo "Error: ".$sql."<br>'.$conn->error;
+        //echo "Error: ".$sql."<br>'.$conn->error;
+    }
+}
+
+function delete(){
+    global $conn,$ItemCode,$ItemDescription,$isActive, $wBatch, $Brand,$ItemType,$Location;
     
-}
-*/
-
-$sql0 = "delete * from product where ItemCode = '".$ItemCode."';";
-    $result0 = mysqli_query($conn, $sql0);
-    if (mysqli_num_rows($result0) > 0) {
-        while($row = mysqli_fetch_assoc($result0)) {
-            echo 
-            
-            "<table class=\"table\">
-            <thead>
-            <tr>
-            <th>Product Detail</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr> <td>Item Code : </td><td>".$row["ItemCode"]."</td></tr>
-            <tr> <td>Item Description :</td><td>".$row["ItemDescription"]."</td></tr>
-            <tr> <td>Item Type :</td><td>".$row["ItemType"]."</td></tr>            
-            <tr> <td>Brand :</td><td>".$row["Brand"]."</td></tr>
-            <tr> <td>Location :</td><td>".$row["Location"]."</td></tr>
-            <tr> <td>isActive :</td><td>".$row["isActive"]."</td></tr>
-            <tr> <td>wBatch :</td><td>".$row["wBatch"]."</td></tr>
-            </tbody>
-            </table>";
-        }
-    }else {
-        echo "Failed to create Product record";
+    $sql0 = "delete from product where ItemCode = '".$ItemCode."';"; 
+    
+    if ($conn->query($sql0) === TRUE) {
+        echo "<script>
+             alert('Record deleted successfully');
+             window.history.go(-1);
+        </script>";
+    } else {
+        echo "<script>
+             alert('Error : Failed to delete record');
+               window.history.go(-1);
+        </script>";
+        //echo "Error: ".$sql."<br>'.$conn->error;
     }
-
-
-
-/*
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "Client Code: " . $row["ClientCode"]. " - Company Name: " . $row["CompanyName"]. " - Address: " . $row["Address"]. " - Contact Number: " . $row["ContactNo"]. " - Email: " . $row["Email"]. " - Remark: " . $row["Remark"]. "<br>";
-    }
-} else {
-    echo "0 results";
 }
-*/
+
+
+
+
+
+
+    
+
+
 mysqli_close($conn);
 ?> 
 </div>
