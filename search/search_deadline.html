@@ -20,24 +20,27 @@
     <p>便捷查詢即期產品</p> 
     <p>便捷查詢庫存</p> 
   </div>
-	<form action="company.php" method="post">
+	<form action="search.php" method="post">
 		<table class="table">
 		<thead>
 		    <tr>
-		    	<th>Company Detail</th>
+		    	<th>Search Detail</th>
 		    </tr>
 	     </thead>
 	     <tbody>
-	     	<tr> <td><input type="radio" name="company" value="supplier"> Supplier</td>
-	     			<td><input type="radio" name="company" value="client"> Client</td></tr>
-			<tr> <td>Code: </td> <td><input type="text" name="Code" ><br> </td></tr>
-			<tr> <td>Company Name:</td> <td><input type="text" name="CompanyName" ><br></td></tr>
-			<tr> <td>Address:</td> <td><input type="text" name="Address" ><br></td></tr>
-			<tr> <td>Contact Number:</td> <td><input type="text" name="ContactNo" ><br></td></tr>
-			<tr> <td>Email:</td> <td><input type="text" name="Email" ><br></td></tr>
-			<tr> <td>Remark:</td> <td><input type="text" name="Remark" ><br></td></tr>
+	     	<tr>
+            <td><input type="radio" name="search" value="seven" id="seven">&nbsp;Seven Days</td>
+	     			<td><input type="radio" name="search" value="fifteen" id="fifteen">&nbsp;Fifteen Days</td>
+	     				<td><input type="radio" name="search" value="one" id="one">&nbsp;One Month</td>
+	     					<td><input type="radio" name="search" value="three" id="three">&nbsp;Three Months</td></tr>
+			
+
+			<tr> <td>ItemCode:</td> <td><input type="text" name="ItemCode" ><br></td></tr>
+			<tr> <td>BatchNo: </td> <td><input type="text" name="BatchNo" ><br> </td></tr>
+			<tr> <td>ExpiredDate:</td> <td><input type="text" name="ExpiredDate" ><br></td></tr>
+			
 			<tr> <td><input type="reset" value="Reset"></td>
-					<td><input type="submit" name="Create" value="Create"></td><tr>
+					<td><input type="submit" name="search" value="Search"></td><tr>
 		</tbody>
 		</table>
 	</form>
