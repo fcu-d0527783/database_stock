@@ -27,7 +27,7 @@
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-  $type = $_POST["search"];
+ 
   $ItemCode = $_POST["ItemCode"];
   $BatchNo = $_POST["BatchNo"];
   $InQty = $_POST["InQty"];
@@ -39,7 +39,7 @@
 
   
   function search($type){
-      global $conn,$ItemCode,$BatchNo;
+      global $conn,$ItemCode,$BatchNo,$InQty,$OutQty;
     if(!empty($ItemCode)){
         $sql_s = "select * from stkbalancebybatch where ItemCode = '".$ItemCode."';" ;
         $result_s = mysqli_query($conn, $sql_s);
@@ -61,8 +61,8 @@
           <tbody>
           <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
           <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>InQty :</td><td>".$row["InQte"]."</td></tr>
-          <tr> <td>OutQty :</td><td>".$row["OutQte"]."</td></tr>
+          <tr> <td>InQty :</td><td>".$row["InQty"]."</td></tr>
+          <tr> <td>OutQty :</td><td>".$row["OutQty"]."</td></tr>
           <tr> <td>inventory :</td><td>".$row["Balence"]."</td></tr>
             
           </tbody>
