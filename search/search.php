@@ -47,7 +47,7 @@
     
     echo $getDate;
     //
-    $sql_deadline = $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
+    $sql_deadline  = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
     
     echo $sql_deadline;
         $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
