@@ -45,11 +45,11 @@
     global $conn,$ItemCode;
     $getDate = date("y-m-d");
     
-    echo $getDate;
+    //echo $getDate;
     //
     $sql_deadline  = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
     
-    echo $sql_deadline;
+    echo strtotime($sql_deadline);
         $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
         $result_d = mysqli_query($conn, $sql_d);
         if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
