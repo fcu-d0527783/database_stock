@@ -38,9 +38,7 @@
   if($_POST["buttonType"] == 'Search'){
     search($_POST["search"]);
   }
-  else{
-    echo "Error";
-  }
+
 
   
   function search($type){
@@ -48,6 +46,31 @@
     $getDate = date("y-m-d");
     
     echo $getDate;
+    //
+    $sql_deadline = $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
+    
+        echo $getDate;
+        $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
+        $result_d = mysqli_query($conn, $sql_d);
+        if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
+            while($row = mysqli_fetch_assoc($result_d)){
+                echo
+                "<table class=\"table\">
+          <thead>
+          <tr>
+          <th>Search Deadline</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
+          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
+          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
+            
+          </tbody>
+          </table>";
+            }
+        }
+    //
     /*
     $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
     $result_deadline = mysqli_query($conn, $sql_deadline);
