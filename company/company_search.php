@@ -71,7 +71,6 @@ function insert($type){
 
 function search($type){
     global $conn,$code;
-<<<<<<< HEAD
     if($type == "supplier"){          
         
         $sql1 = "select * from supplier where SupplierCode = '".$code."';";
@@ -98,50 +97,47 @@ function search($type){
         } else {
             echo "Failed to search Supplier record";
           }
-=======
-    if($type == "supplier"){               
-        $sql0 = "select * from supplier where SupplierCode = '".$code."';";                
->>>>>>> a9ed3cfebcc86fe1d3d0e4bb6bc6d6d618368d24
     }
     else if($type == "client"){
         $sql0 = "select * from client where ClientCode = '".$code."';";
-    }
-    $result0 = mysqli_query($conn, $sql0);
-    if (mysqli_num_rows($result0) > 0 ) {
-        echo
-        "<table class=\"table\">
+        $result0 = mysqli_query($conn, $sql0);
+        if (mysqli_num_rows($result0) > 0 ) {
+            while($row = mysqli_fetch_assoc($result0)) {
+                echo            
+            "<table class=\"table\">
             <thead>
             <tr>
             <th>Client Detail</th>
             </tr>
             </thead>
             <tbody>
-            <tr> <td>Client Code </td> <td>Company Name </td> <td>Address </td> <td>Contact Number </td> <td>Email </td>  <td>Remark </td> </tr> ";
-    
-       while($row = mysqli_fetch_assoc($result0)) {
-            echo
-            "
-            <td>".$row['ClientCode']."</td><td>".$row['CompanyName']."</td><td>".$row['Address']."</td><td>".$row['ContactNo']."</td><td>".$row['Email']."</td><td>".$row['Remark']."</td></tr>
+            <tr> <td>Client Code : </td><td>".$row["ClientCode"]."</td></tr>
+            <tr> <td>Company Name :</td><td>".$row["CompanyName"]."</td></tr>
+            <tr> <td>Address :</td><td>".$row["Address"]."</td></tr>
+            <tr> <td>Contact Number :</td><td>".$row["ContactNo"]."</td></tr>
+            <tr> <td>Email :</td><td>".$row["Email"]."</td></tr>
+            <tr> <td>Remark :</td><td>".$row["Remark"]."</td></tr>
             </tbody>
             </table>";
-<<<<<<< HEAD
             }
         }else {
             echo "Failed to search Client record";
         }
         
-=======
-       }
-       echo"
-       </tbody>
-       </table>";
-    }else {
-        echo "Failed to search Client record";
->>>>>>> a9ed3cfebcc86fe1d3d0e4bb6bc6d6d618368d24
     }
-    
 }
 
+
+/*
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "Client Code: " . $row["ClientCode"]. " - Company Name: " . $row["CompanyName"]. " - Address: " . $row["Address"]. " - Contact Number: " . $row["ContactNo"]. " - Email: " . $row["Email"]. " - Remark: " . $row["Remark"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+*/
 mysqli_close($conn);
 ?> 
 </div>
