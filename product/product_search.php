@@ -67,13 +67,28 @@ function insert(){
 
 function search(){
     global $conn,$ItemCode,$ItemDescription, $isWatch, $wBatch, $Brand,$ItemType,$Location;
-    if($ItemCode &&$Brand){
+    if($ItemType && $Brand){
         $sql1 = "select * from product
-         where Brand = '".$Brand."' AND ItemCode = '".$ItemCode."';";
+         where Brand like '%".$Brand."%' AND ItemType like '%".$ItemType."%';";
     }
     
+    else if($ItemDescription && $Brand){
+        $sql1 = "select * from product
+         where Brand like '%".$Brand."%' AND ItemDescription like '%".$ItemDescription."%';";
+    }
+    
+    else if($Location && $Brand){
+        $sql1 = "select * from product
+         where Brand like '%".$Brand."%' AND Location like '%".$Location."%';";
+    }
+    
+    else if($Location && $ItemType){
+        $sql1 = "select * from product
+         where ItemType like '%".$ItemType."%' AND Location like '%".$Location."%';";
+    }
+      
     else if($Brand){
-        $sql1 = "select * from product where Brand = '".$Brand."';";
+        $sql1 = "select * from product where Brand like '%".$Brand."%';";
     } 
     else if($ItemCode){
         $sql1 = "select * from product where p.ItemCode = '".$ItemCode."';";
@@ -85,7 +100,6 @@ function search(){
     
     else if($ItemDescription){
         $sql1 = "select * from product where ItemDescription = '".$ItemDescription."';";   
-
     }  
       
 
