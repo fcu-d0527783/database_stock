@@ -56,7 +56,7 @@
             while($row = mysqli_fetch_assoc($result_d)){
             //1970-01-01
            echo  $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
-           echo $difffstrtotime($diff);
+           echo $difff = strtotime($diff);
            echo $difff/86400;
 
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
