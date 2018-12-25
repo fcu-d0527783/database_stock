@@ -59,7 +59,7 @@
            echo "******************";
            echo  strtotime($getDate)/86400;
            echo date("Y-m-d H:i:s",strtotime($getDate));
-           echo date("Y-m-d H:i:s",sstrtotime($row["ExpiredDate"]));
+
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
                   echo
                 "<table class=\"table\">
