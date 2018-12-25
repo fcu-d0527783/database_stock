@@ -51,9 +51,22 @@ else{
 
 function insert($type){
     global $conn,$code,$name,$addr,$cnum,$remark,$email;   
-    $sql = "insert into '".$type."' values ('".$code."', '".$name."', '".$addr."', '".$cnum."', '".$email."', '".$remark."');";
+    $sql = "insert into ".$type." values ('".$code."', '".$name."', '".$addr."', '".$cnum."', '".$email."', '".$remark."');";
         //$result = mysqli_query($conn, $sql);
-    echo $sql;         
+    echo $sql;   
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>
+             alert('New record created successfully');
+             window.history.go(-1);
+        </script>";
+    } else {
+        echo "<script>
+             alert('Error : Failed to create new record');
+               window.history.go(-1);
+        </script>";
+        //echo "Error: ".$sql."<br>'.$conn->error;
+        
+    }
 }
 
 function search($type){
@@ -82,7 +95,7 @@ function search($type){
             </table>";
             }
         } else {
-            echo "Failed to create Supplier record";
+            echo "Failed to search Supplier record";
           }
     }
     else if($type == "client"){
@@ -108,7 +121,7 @@ function search($type){
             </table>";
             }
         }else {
-            echo "Failed to create Client record";
+            echo "Failed to search Client record";
         }
         
     }

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <title>進出貨</title>
+  <title>便捷查詢</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -27,57 +27,32 @@
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-
+  $type = $_POST["search"];
   $ItemCode = $_POST["ItemCode"];
-  $ExpiredDate = $_POST["ExpiredDate"];
   $BatchNo = $_POST["BatchNo"];
   $InQty = $_POST["InQty"];
   $OutQty = $_POST["OutQty"];
   
 
-  //button "search"
  
-  if($_POST["buttonType"] == 'Search'){
-    search($_POST["search"]);
-  }
-  else{
-    echo "Error";
-  }
+  
 
   
   function search($type){
-    global $conn,$ItemCode;
-    $getDate = date("y-m-d");
-    echo $getDate;
-    if($type == "Seven Days"){
-      $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
-      $result_deadline = mysqli_query($conn, $sql_deadline);
-      if(mysqli_num_rows($result_deadline) - $getDate <= 7 ){
-        while($row = mysqli_fetch_assoc($result_deadline)){
-          echo
-          "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-          
-          </tbody>
-          </table>";
-        }
-      }
+      global $conn,$ItemCode,$BatchNo;
+    if(!empty($ItemCode)){
+        $sql_s = "select * from stkbalancebybatch where ItemCode = '".$ItemCode."';" ;
+        $result_s = mysqli_query($conn, $sql_s);
     }
-    else if($type == "Fifteen Days"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
-        $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(mysqli_num_rows($result_deadline) - $getDate <= 15 ){
-            while($row = mysqli_fetch_assoc($result_deadline)){
-                echo
-                "<table class=\"table\">
+    else if(!empty($BatchNo)){
+        $sql_s = "select * from stkbalancebybatch where ItemCode = '".$ItemCode."';" ;
+        $result_s = mysqli_query($conn, $sql_s);
+    }
+    
+    while($row = mysqli_fetch_assoc($result_s)){
+        
+            echo
+            "<table class=\"table\">
           <thead>
           <tr>
           <th>Search Deadline</th>
@@ -86,56 +61,14 @@
           <tbody>
           <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
           <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
+          <tr> <td>InQty :</td><td>".$row["InQte"]."</td></tr>
+          <tr> <td>OutQty :</td><td>".$row["OutQte"]."</td></tr>
+          <tr> <td>inventory :</td><td>".$row["Balence"]."</td></tr>
             
           </tbody>
           </table>";
-            }
         }
-    }
-    else if($type == "One Month"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
-        $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(mysqli_num_rows($result_deadline) - $getDate <= 30 ){
-            while($row = mysqli_fetch_assoc($result_deadline)){
-                echo
-                "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-            
-          </tbody>
-          </table>";
-            }
-        }
-    }else if($type == "Three Months"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
-        $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(mysqli_num_rows($result_deadline) - $getDate <= 90 ){
-            while($row = mysqli_fetch_assoc($result_deadline)){
-                echo
-                "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-            
-          </tbody>
-          </table>";
-            }
-        }
-    }
+    
   }
 ?>
 </div>
