@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <title>進出貨</title>
+  <title>便捷查詢</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -27,7 +27,7 @@
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-
+  $type = $_POST["search"];
   $ItemCode = $_POST["ItemCode"];
   $ExpiredDate = $_POST["ExpiredDate"];
   $BatchNo = $_POST["BatchNo"];
@@ -36,160 +36,139 @@
   //button "search"
  
   if($_POST["buttonType"] == 'Search'){
+    
+    echo
+    "<table class=\"table\">
+        <tr>
+        <th>Search Deadline</th>
+        </tr>
+          <tbody>
+        <tr> <td>ItemCode</td> <td>BatchNo</td> <td>ExpiredDate</td>  <td>Days</td>  </tr>
+         ";
     search($_POST["search"]);
   }
 
 
   
   function search($type){
-    global $conn,$ItemCode;
+    global $conn,$ItemCode,$search;
     $getDate = date("y-m-d");
-    
-    //echo $getDate;
-    //
-    $sql_deadline  = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
-    
-    //echo strtotime($sql_deadline);
+   
+    if($type == "One Week"){
+  
         $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
         $result_d = mysqli_query($conn, $sql_d);
         
             while($row = mysqli_fetch_assoc($result_d)){
             //1970-01-01
-           echo  $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
-           echo $difff = strtotime($diff);
-           echo $difff/86400;
+             $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+            $difff = strtotime($diff);
+            $difff/=86400;
+            $a = round($difff,0);
 
-          if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
-                  echo
-                "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
+          if($difff <= 7 ){
+              //
+             
+              echo
+              "
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
+        
+                 
+                 
+          </tbody>
+          </table>";
+              //
+                
 
+            }
+            }
+    }
+  else if($type == "Two Weeks"){
+               
+                $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
+                $result_d = mysqli_query($conn, $sql_d);
+                
+                while($row = mysqli_fetch_assoc($result_d)){
+                    //1970-01-01
+                    $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+                    $difff = strtotime($diff);
+                    $difff/=86400;
+                    $a = round($difff,0);
+                    if($difff > 7 && $difff <= 14 ){
+                        echo
+                      
+                        "
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
+                        
+                        
+                        
           </tbody>
           </table>";
+                    }
+                }
             }
-        }
+            else if($type == "One Month"){
         
-    //
-    /*
-    $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
-    $result_deadline = mysqli_query($conn, $sql_deadline);
-    $sql_ItemCode = "select * from batch AS B , produce AS P where ItemCode = '".$ItemCode."' AND B.ItemCode = p.ItemCode;" ;
-    $result_deadline = mysqli_query($conn, $sql_ItemCode);
-    
-        while($row = mysqli_fetch_assoc($result_deadline)){
-            echo
-            "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
+                    $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
+                    $result_d = mysqli_query($conn, $sql_d);
+                    
+                    while($row = mysqli_fetch_assoc($result_d)){
+                        //1970-01-01
+                        $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+                        $difff = strtotime($diff);
+                        $difff/=86400;
+                        $a = round($difff,0);
+                        if($difff > 15 && $difff <= 30 ){
+                            echo
+                            "<table class=\"table\">
+        <tr>
+        <th>Search Deadline</th>
+        </tr>
           <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
+        <tr> <td>ItemCode</td> <td>BatchNo</td> <td>ExpiredDate</td>  <td>Days</td>  </tr>
+         ";
+                            echo
+                            "
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
+                            
+                            
+                            
+          </tbody>
+          </table>";
+                        }
+                    }
+                    
+            }
+            
+           else if($type == "Three Months"){
+
+                $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
+                $result_d = mysqli_query($conn, $sql_d);
+                
+                while($row = mysqli_fetch_assoc($result_d)){
+                    //1970-01-01
+                    $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+                    $difff = strtotime($diff);
+                    $difff/=86400;
+                    $a = round($difff,0);
+                    
+                    if($difff > 30 && $difff <= 90 ){
+                        
+                        echo
+                        "
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
+                        
+                        
+                        
+          </tbody>
+          </table>";
+                    }
+                }
+            }
+            
         
-          </tbody>
-          </table>";
-        }
-    */
-    $sql_deadline = $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
-    if($type == "Seven Days"){
-        echo $getDate;
-      $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
-      $result_d = mysqli_query($conn, $sql_d);
-      if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
-        while($row = mysqli_fetch_assoc($result_d)){
-          echo
-          "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-          
-          </tbody>
-          </table>";
-        }
-      }
-    }
-    else if($type == "Fifteen Days"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
-        $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 15*86400 ){
-            while($row = mysqli_fetch_assoc($result_deadline)){
-                echo
-                "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-            
-          </tbody>
-          </table>";
-            }
-        }
-    }
-    else if($type == "One Month"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
-        $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 30*86400 ){
-            while($row = mysqli_fetch_assoc($result_deadline)){
-                echo
-                "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-            
-          </tbody>
-          </table>";
-            }
-        }
-    }else if($type == "Three Months"){
-        $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
-        $result_deadline = mysqli_query($conn, $sql_deadline);
-        if(strtotime(mysqli_num_rows($result_deadline)) - strtotime($getDate) <= 90*86400 ){
-            while($row = mysqli_fetch_assoc($result_deadline)){
-                echo
-                "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
-            
-          </tbody>
-          </table>";
-            }
-        }
-    }
+        
+
   }
 ?>
 </div>

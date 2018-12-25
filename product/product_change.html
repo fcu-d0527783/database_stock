@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>產品管理</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<div class="jumbotron">
+    <h1>產品管理</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="./product_search.html">新增、查詢產品資料</a></p>
+    <p>=>&nbsp;修改、刪除產品資料</p>    
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p>
+  </div>
+	<form action="product_change.php" method="post">
+		<table class="table">
+		<thead>
+		    <tr>
+		    	<th>Product Detail</th>
+		    </tr>
+		     <tr><td>Whatever delete or update , * must be typed.</td>
+		     <td>update : choose 1 (excpet*) you ready to update </td></tr>
+	     </thead>
+	     <tbody>
+			<tr> <td>*ItemCode: </td> <td><input type="text" name="ItemCode" ><br> </td></tr>
+			<tr> <td>ItemDescription:</td> <td><input type="text" name="ItemDescription" ><br></td></tr>
+			<tr> <td>ItemType:</td> <td><input type="text" name="ItemType" ><br></td></tr>
+			<tr> <td>Brand:</td> <td><input type="text" name="Brand" ><br></td></tr>
+			<tr> <td>Location:</td> <td><input type="text" name="Location" ><br></td></tr>
+			<tr> <td>isActive:</td> <td><input type="text" name="isActive" ><br></td></tr>
+			<tr> <td>wBatch:</td> <td><input type="text" name="wBatch" ><br></td></tr>	
+			<tr> <td>Remark:</td> <td><input type="text" name="Remark" ><br></td></tr>
+			<tr> 
+			     <td style="width:33.33%"><input type="reset" value="Reset"></td>
+			     <td style="width:33.33%"><input type="submit" name="buttonType" value="Update"></td>
+			     <td style="width:33.33%"><input type="submit" name="buttonType" value="Delete"></td>
+			<tr>
+		</tbody>
+		</table>
+	</form>
+</div>
+
+</body>
+</html>

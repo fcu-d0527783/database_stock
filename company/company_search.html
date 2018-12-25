@@ -16,7 +16,9 @@
 <div class="container">
 	<div class="jumbotron">
     <h1>供應商、客戶管理</h1>
-    <p>新增、查詢買賣家資料</p> 
+    <p>=>&nbsp;新增、查詢買賣家資料</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="./company_change.html">更改、刪除買賣家資料</a></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p> 
   </div>
 	<form action="company_search.php" method="post">
 		<table class="table">
@@ -26,19 +28,44 @@
 		    </tr>
 	     </thead>
 	     <tbody>
-	     	<tr> <td><input type="radio" name="company" value="supplier"> Supplier</td>
-	     			<td><input type="radio" name="company" value="client"> Client</td></tr>
-			<tr> <td>Code: </td> <td><input type="text" name="Code" ><br> </td></tr>
+	        <tr> <td><input type="radio" name="company" value="supplier" id="supplier"> Supplier</td>
+	     	<td><input type="radio" name="company" value="client" id="client"> Client</td></tr>
+		    <tr id="s" class="hide">
+			<td>SupplierCode: </td> <td><input type="text" name="SupplierCode" ><br> </td></tr>
+			<tr id="c" class="hide">
+			<td>ClientCode: </td> <td><input type="text" name="ClientCode" ><br> </td></tr>
 			<tr> <td>Company Name:</td> <td><input type="text" name="CompanyName" ><br></td></tr>
 			<tr> <td>Address:</td> <td><input type="text" name="Address" ><br></td></tr>
 			<tr> <td>Contact Number:</td> <td><input type="text" name="ContactNo" ><br></td></tr>
 			<tr> <td>Email:</td> <td><input type="text" name="Email" ><br></td></tr>
 			<tr> <td>Remark:</td> <td><input type="text" name="Remark" ><br></td></tr>
-			<tr> <td><input type="reset" value="Reset"></td>
-			     <td><input type="submit" name="buttonType" value="Insert" ></td>
-				 <td><input type="submit" name="buttonType" value="Search"></td><tr>
-					
-	
+			<tr> <td style="width:33.33%"><input type="reset" value="Reset" id="reset"></td>
+			     <td style="width:33.33%"><input type="submit" name="buttonType" value="Insert" class="hide" id="insertbtn"></td>
+				 <td style="width:33.33%"><input type="submit" name="buttonType" value="Search" class="hide" id="searchbtn"></td><tr>
+		<script>
+		$("input:radio[name='company']").change(function (){
+			var val=$("input:radio[name='company']:checked").val();
+			if(val == 'supplier'){
+                document.getElementById("s").classList.remove('hide');
+                document.getElementById("c").classList.add('hide');
+                document.getElementById("insertbtn").classList.remove('hide');
+                document.getElementById("searchbtn").classList.remove('hide');
+			} 
+			else if (val == 'client'){
+                document.getElementById("c").classList.remove('hide');
+                document.getElementById("s").classList.add('hide');
+                document.getElementById("insertbtn").classList.remove('hide');
+                document.getElementById("searchbtn").classList.remove('hide');
+			}
+		});
+			 document.getElementById("reset").addEventListener('click',function(){
+	         document.getElementById("s").classList.add('hide');
+	         document.getElementById("c").classList.add('hide');
+             document.getElementById("insertbtn").classList.add('hide');
+             document.getElementById("searchbtn").classList.add('hide');
+	         });
+	     
+		</script>
           
 		</tbody>
 		</table>

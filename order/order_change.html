@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>進出貨</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="jumbotron">
+    <h1>進、出貨</h1><br/>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="./order_search.html">新增、查詢進出貨單</a></p>
+    <p>=>&nbsp;修改、删除進出貨單</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p>
+  </div>
+	<form action="order_change.php" method="post">
+		<table class="table">
+		<thead>
+		    <tr>
+		    	<th>Order Detail</th>
+		    </tr>
+        <tr>
+          <td>Element with * must need input</td>
+        </tr>
+	     </thead>
+	     <tbody>
+	     	<tr>
+            <td><input type="radio" name="order" value="purchase" id="purchase">&nbsp;Purcahse_Order</td>
+	     			<td><input type="radio" name="order" value="sale" id="sale">&nbsp;Sale_Order</td></tr>
+			<tr id="s" class="hide"> <td>*SONo:</td> <td><input type="text" name="SONo"><br> </td></tr>
+      <tr id="p" class="hide"> <td>*PONo:</td> <td><input type="text" name="PONo"><br> </td></tr>
+			<tr> <td>Date:</td> <td><input type="text" name="Date" ><br></td></tr>
+			<tr> <td>ItemCode:</td> <td><input type="text" name="ItemCode" ><br></td></tr>
+  		<tr> <td>BatchNo:</td> <td><input type="text" name="BatchNo" ><br></td></tr>
+			<tr class="hide" id="expired_date"> <td>ExpiredDate:</td> <td><input type="text" name="ExpiredDate" ><br></td></tr>
+			<tr> <td>Quntity:</td> <td><input type="text" name="Qty" ><br></td></tr>
+			<tr class="hide" id="client"> <td>ClientCode:</td> <td><input type="text" name="ClientCode" ><br></td></tr>
+			<tr class="hide" id="supplier"> <td>SupplierCode:</td> <td><input type="text" name="SupplierCode" ><br></td></tr>
+			<tr> <td>EmployeeCode:</td> <td><input type="text" name="EmployeeCode" ><br></td></tr>
+			<tr> <td  style="width:33.33%"><input type="reset" value="Reset" id="reset"></td>
+					 <td  style="width:33.33%"><input type="submit" name="buttonType" value="Update" class="hide" id="updatebtn"></td>
+           <td  style="width:33.33%"><input type="submit" name="buttonType" value="Delete" class="hide" id="deletebtn"></td><tr>
+          <script>
+            //detect purchase or sale
+            $("input:radio[name='order']").change(function (){
+              //get value's value
+              var val=$("input:radio[name='order']:checked").val();
+              if(val == 'purchase'){
+                  document.getElementById("supplier").classList.remove('hide');
+                  document.getElementById("client").classList.add('hide');
+                  document.getElementById("expired_date").classList.remove('hide');
+                  document.getElementById("p").classList.remove('hide');
+                  document.getElementById("s").classList.add('hide');
+                  document.getElementById("updatebtn").classList.remove('hide');
+                  document.getElementById("deletebtn").classList.remove('hide');
+              }
+              else if(val == 'sale'){
+                document.getElementById("client").classList.remove('hide');
+                document.getElementById("expired_date").classList.add('hide');
+                document.getElementById("supplier").classList.add('hide');
+                document.getElementById("updatebtn").classList.remove('hide');
+                document.getElementById("deletebtn").classList.remove('hide');
+                document.getElementById("s").classList.remove('hide');
+                document.getElementById("p").classList.add('hide');
+              }
+            });
+            document.getElementById("reset").addEventListener('click',function(){
+              document.getElementById("client").classList.add('hide');
+              document.getElementById("expired_date").classList.add('hide');
+              document.getElementById("supplier").classList.add('hide');
+              document.getElementById("deletebtn").classList.add('hide');
+              document.getElementById("updatebtn").classList.add('hide');
+            });
+          </script>
+		</tbody>
+		</table>
+	</form>
+</div>
+
+</body>
+</html>

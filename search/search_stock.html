@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>主頁</title>
+  <title>便捷查詢</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -21,7 +21,7 @@
     <p>=>&nbsp;便捷查詢庫存</p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p>
   </div>
-	<form action="search.php" method="post">
+	<form action="search_stock.php" method="post">
 		<table class="table">
 		<thead>
 		    <tr>
@@ -33,8 +33,10 @@
 			<tr> <td>ItemCode: </td> <td><input type="text" name="ItemCode" ><br> </td></tr>
 			<tr> <td>BatchNo:</td> <td><input type="text" name="BatchNo" ><br></td></tr>
 
+
 			<tr> <td><input type="reset" value="Reset"></td>
 					<td><input type="submit" name="search" value="search"></td><tr>
+
 		</tbody>
 		</table>
 	</form>
