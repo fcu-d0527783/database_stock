@@ -70,7 +70,7 @@
 
           </tbody>
           </table>";
-            }
+            
             if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
                   echo
                 "<table class=\"table\">
@@ -87,6 +87,7 @@
           </tbody>
           </table>";
             }
+        }
         }
     //
     /*
