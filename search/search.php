@@ -58,7 +58,7 @@
            $deadline = (strtotime($row["ExpiredDate"])- strtotime($getDate));
            echo "******************";
            
-           echo date("Y-m-d ",strtotime($deadline));
+           echo date("Y-m-d ",strtotime($row["ExpiredDate"]));
 
           if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
                   echo
