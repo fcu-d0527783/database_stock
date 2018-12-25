@@ -52,7 +52,7 @@
     //echo strtotime($sql_deadline);
         $sql_d = "select * from batch where ItemCode = '".$ItemCode."';" ;
         $result_d = mysqli_query($conn, $sql_d);
-        if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
+        
             while($row = mysqli_fetch_assoc($result_d)){
               // echo
                 "<table class=\"table\">
@@ -71,7 +71,7 @@
           </tbody>
           </table>";
             
-            if(strtotime($sql_deadline)- strtotime($getDate) <= 7*86400 ){
+          if(strtotime($row["ExpiredDate"])- strtotime($getDate) <= 7*86400 ){
                   echo
                 "<table class=\"table\">
           <thead>
@@ -88,7 +88,7 @@
           </table>";
             }
         }
-        }
+        
     //
     /*
     $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."';" ;
