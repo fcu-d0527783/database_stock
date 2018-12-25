@@ -55,7 +55,7 @@
         
             while($row = mysqli_fetch_assoc($result_d)){
             
-           echo  date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+           echo  date ("yy-mm-dd" , strtotime($row["ExpiredDate"])-strtotime($getDate));
           
            echo $days;
 
