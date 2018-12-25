@@ -35,45 +35,37 @@
   $OutQty = $_POST["OutQty"];
   
 
-  //detect button "insert" or "search"
-  if($_POST["buttonType"] == 'Insert'){
-    insert($_POST["order"]);
-  }
-  else if($_POST["buttonType"] == 'Search'){
-    search($_POST["order"]);
+  //button "search"
+ 
+  if($_POST["buttonType"] == 'Search'){
+    search($_POST["search"]);
   }
   else{
     echo "Error";
   }
 
-  function insert($type){
-    if($type == "purchase"){
-
-    }
-    else if($type == "sale"){
-
-    }
-  }
-
+  
   function search($type){
-    global $conn,$PONo;
-    if($type == "purchase"){
-      $sql_s_p = "select * from purchase_order where PONo = '".$PONo."';";
-      $result_s_p = mysqli_query($conn, $sql_s_p);
-      if(mysqli_num_rows($result_s_p) > 0){
-        while($row = mysqli_fetch_assoc($result_s_p)){
+    global $conn,$ItemCode;
+    $getDate = date("y-m-d");
+    echo $getDate;
+    if($type == "Seven Days"){
+      $sql_deadline = "select ExpiredDate from batch where ItemCode = '".$ItemCode."', ;" ;
+      $result_deadline = mysqli_query($conn, $sql_deadline);
+      if(mysqli_num_rows($result_deadline) > 0){
+        while($row = mysqli_fetch_assoc($result_deadline)){
           echo
           "<table class=\"table\">
           <thead>
           <tr>
-          <th>Purchase Order</th>
+          <th>Search Deadline</th>
           </tr>
           </thead>
           <tbody>
-          <tr> <td>PNo : </td><td>".$row["PONo"]."</td></tr>
-          <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
-          <tr> <td>SupplierCode :</td><td>".$row["SupplierCode"]."</td></tr>
-          <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
+          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
+          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
+          <tr> <td>ExpiredDate :</td><td>".$row["ExpiredDate"]."</td></tr>
+          
           </tbody>
           </table>";
         }
