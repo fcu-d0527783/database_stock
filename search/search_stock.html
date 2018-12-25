@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 新 Bootstrap 核心 CSS 文件 -->
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
   <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -17,8 +17,9 @@
 <div class="container">
 	<div class="jumbotron">
     <h1>便捷查詢</h1>
-    <p>便捷查詢即期產品</p> 
-    <p>便捷查詢庫存</p> 
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="./search_deadline.html">便捷查詢即期產品</a></p>
+    <p>=>&nbsp;便捷查詢庫存</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../index.php">返回主頁</a></p>
   </div>
 	<form action="search_stock.php" method="post">
 		<table class="table">
@@ -28,12 +29,18 @@
 		    </tr>
 	     </thead>
 	     <tbody>
-	     	
+
 			<tr> <td>ItemCode: </td> <td><input type="text" name="ItemCode" ><br> </td></tr>
 			<tr> <td>BatchNo:</td> <td><input type="text" name="BatchNo" ><br></td></tr>
+<<<<<<< HEAD
 			
 		<tr> <td><input type="reset" value="Reset" id="reset"></td>
 					<td><input type="submit" name="buttonType" value="search"></td><tr>
+=======
+
+			<tr> <td><input type="reset" value="Reset"></td>
+					<td><input type="submit" name="search" value="search"></td><tr>
+>>>>>>> a9ed3cfebcc86fe1d3d0e4bb6bc6d6d618368d24
 		</tbody>
 		</table>
 	</form>

@@ -33,7 +33,10 @@
   $InQty = $_POST["InQty"];
   $OutQty = $_POST["OutQty"];
   
-
+  if($_POST["buttonType"] == 'Search'){
+      search($_POST["search"]);
+  }
+  
  
   
 
