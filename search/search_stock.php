@@ -59,25 +59,24 @@
           </table>";
     }
     else if(!empty($BatchNo)){
-        $sql_s = "select * from stkbalancebyproduct where BatchNo = '".$BatchNo."';" ;
-        $result_s = mysqli_query($conn, $sql_s);
-        while($row = mysqli_fetch_assoc($result_s)){
-            echo
-            "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Search Deadline</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>ItemCode : </td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>InQty :</td><td>".$row["InQty"]."</td></tr>
-          <tr> <td>OutQty :</td><td>".$row["OutQty"]."</td></tr>
-          <tr> <td>inventory :</td><td>".$row["Balance"]."</td></tr>
+        
+        $sql_s_b = "select * from stkbalancebybatch where BatchNo = '".$BatchNo."';" ;
+        $result_s_b = mysqli_query($conn, $sql_s_b);
+   
+        while($row = mysqli_fetch_assoc($result_s_b)){
+           
             
+            echo
+            "
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["InQty"]."</td> <td>".$row["OutQty"]."</td>
+          <td>".$row["Balance"]."</td></tr>
+              
+            ";
+            
+        }
+        echo "
           </tbody>
           </table>";
-        }
     }
     
   
