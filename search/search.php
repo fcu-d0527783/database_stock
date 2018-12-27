@@ -74,7 +74,7 @@
     }
   else if($type == "Two Weeks"){
                
-      $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between DATE_ADD(curdate(), INTERVAL 8 DAY) AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
+      $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
                 $result_d = mysqli_query($conn, $sql_d);
                 
                 while($row = mysqli_fetch_assoc($result_d)){
@@ -97,7 +97,7 @@
             }
             else if($type == "One Month"){
         
-                $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between DATE_ADD(curdate(), INTERVAL 15 DAY) AND DATE_ADD(curdate(), INTERVAL 30 DAY)    ;" ;
+                $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 30 DAY)    ;" ;
                     $result_d = mysqli_query($conn, $sql_d);
                     
                     while($row = mysqli_fetch_assoc($result_d)){
@@ -123,7 +123,7 @@
             
            else if($type == "Three Months"){
 
-               $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between DATE_ADD(curdate(), INTERVAL 31 DAY) AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
+               $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
                 $result_d = mysqli_query($conn, $sql_d);
                 
                 while($row = mysqli_fetch_assoc($result_d)){
@@ -171,7 +171,7 @@
         }
         else if($type == "Two Weeks"){
             
-            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between DATE_ADD(curdate(), INTERVAL 8 DAY) AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
+            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate()AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
             
             while($row = mysqli_fetch_assoc($result_d)){
@@ -194,7 +194,7 @@
         }
         else if($type == "One Month"){
             
-            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between DATE_ADD(curdate(), INTERVAL 15 DAY) AND DATE_ADD(curdate(), INTERVAL 30 DAY)    ;" ;
+            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 30 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
             
             while($row = mysqli_fetch_assoc($result_d)){
@@ -220,7 +220,7 @@
         
         else if($type == "Three Months"){
             
-            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between DATE_ADD(curdate(), INTERVAL 31 DAY) AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
+            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
             
             while($row = mysqli_fetch_assoc($result_d)){
