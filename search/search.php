@@ -82,7 +82,7 @@
                     $difff = strtotime($diff);
                     $difff/=86400;
                     $a = round($difff,0);
-                    if($difff > 7 && $difff <= 14 ){
+                  
                         echo
                       
                         "
@@ -92,7 +92,7 @@
                         
           </tbody>
           </table>";
-                    }
+                    
                 }
             }
             else if($type == "One Month"){
@@ -106,7 +106,7 @@
                         $difff = strtotime($diff);
                         $difff/=86400;
                         $a = round($difff,0);
-                        if($difff > 15 && $difff <= 30 ){
+                       
                           
                             echo
                             "
@@ -117,7 +117,7 @@
           </tbody>
           </table>";
                         }
-                    }
+                    
                     
             }
             
@@ -133,7 +133,7 @@
                     $difff/=86400;
                     $a = round($difff,0);
                     
-                    if($difff > 30 && $difff <= 90 ){
+                   
                         
                         echo
                         "
@@ -143,7 +143,7 @@
                         
           </tbody>
           </table>";
-                    }
+                    
                 }
             }
     }
@@ -171,7 +171,7 @@
         }
         else if($type == "Two Weeks"){
             
-            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate()AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
+            $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
             
             while($row = mysqli_fetch_assoc($result_d)){
@@ -179,7 +179,7 @@
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-                if($difff > 7 && $difff <= 14 ){
+                
                     echo
                     
                     "
@@ -189,7 +189,7 @@
                 
           </tbody>
           </table>";
-                }
+                
             }
         }
         else if($type == "One Month"){
@@ -203,7 +203,7 @@
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-                if($difff > 15 && $difff <= 30 ){
+               
                     
                     echo
                     "
@@ -213,7 +213,7 @@
                 
           </tbody>
           </table>";
-                }
+                
             }
             
         }
@@ -230,7 +230,7 @@
                 $difff/=86400;
                 $a = round($difff,0);
                 
-                if($difff > 30 && $difff <= 90 ){
+                
                     
                     echo
                     "
@@ -240,7 +240,7 @@
                 
           </tbody>
           </table>";
-                }
+                
             }
         }
         
