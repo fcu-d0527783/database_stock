@@ -52,7 +52,7 @@ function delete($type){
     global $conn,$ccode,$scode,$name,$addr,$cnum,$remark,$email;
     $flag=0;
     if($type =="supplier") {
-        $sql1 =  "select * from supplier where SupplierCode like '".$scode."';";
+        $sql1 =  "select * from supplier where SupplierCode = '".$scode."';";
         $result1 = mysqli_query($conn, $sql1);
         if(mysqli_num_rows($result1) > 0){
             $flag = 1;
@@ -61,14 +61,14 @@ function delete($type){
             echo"No such supplier";
         }
         if($scode){
-            $sql0 = "delete from supplier where SupplierCode like '%".$scode."%';";
+            $sql0 = "delete from supplier where SupplierCode = '".$scode."';";
         } 
         else if($name){
-           $sql0 = "delete from supplier where CompanyName like '%".$name."%';";
+           $sql0 = "delete from supplier where CompanyName = '".$name."';";
         }       
     }
     else {
-        $sql1 =  "select * from client where ClientCode like '".$ccode."';";
+        $sql1 =  "select * from client where ClientCode = '".$ccode."';";
         $result1 = mysqli_query($conn, $sql1);
         if(mysqli_num_rows($result1) > 0){
             $flag = 1;
@@ -77,10 +77,10 @@ function delete($type){
             echo"No such client";
         }
         if($ccode){         
-           $sql0 = "delete from client where ClientCode like '%".$ccode."%';";
+           $sql0 = "delete from client where ClientCode = '".$ccode."';";
         } 
         else if($name){
-           $sql0 = "delete from client where CompanyName like '%".$name."%';";
+           $sql0 = "delete from client where CompanyName = '".$name."';";
         }  
     }
     
@@ -99,15 +99,14 @@ function delete($type){
             //echo "Error: ".$sql."<br>'.$conn->error;
         }
         $flag=0;
-    }
-    
+    } 
 }
 
 function update($type){
     global $conn,$scode,$ccode,$name,$addr,$cnum,$remark,$email; 
     $flag=0;
     if($type =="supplier")   {
-        $sql1 =  "select * from supplier where SupplierCode like '".$scode."';";
+        $sql1 =  "select * from supplier where SupplierCode = '".$scode."';";
         $result1 = mysqli_query($conn, $sql1);
         if(mysqli_num_rows($result1) > 0){
             $flag = 1;
@@ -116,32 +115,32 @@ function update($type){
             echo"No such supplier";
         }
         if($name && $addr ){           
-            $sql0 = "update supplier set CompanyName = '".$name."', Address = '".$addr."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set CompanyName = '".$name."', Address = '".$addr."' where SupplierCode = '".$scode."';";
         } 
         else if($email && $addr) {
-            $sql0 = "update supplier set Email = '".$email."' ,Address = '".$addr."'where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set Email = '".$email."' ,Address = '".$addr."'where SupplierCode = '".$scode."';";
         }
         else if($cnum && $addr) {
-            $sql0 = "update supplier set ContactNo = '".$cnum."',Address = '".$addr."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set ContactNo = '".$cnum."',Address = '".$addr."' where SupplierCode = '".$scode."';";
         }
         else if($name){
-            $sql0 = "update supplier set CompanyName = '".$name."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set CompanyName = '".$name."' where SupplierCode = '".$scode."';";
         } 
         else if($addr) {
-            $sql0 = "update supplier set Address = '".$addr."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set Address = '".$addr."' where SupplierCode = '".$scode."';";
         } 
         else if($email) {
-            $sql0 = "update supplier set Email = '".$email."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set Email = '".$email."' where SupplierCode = '".$scode."';";
         } 
         else if($cnum) {
-            $sql0 = "update supplier set ContactNo = '".$cnum."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set ContactNo = '".$cnum."' where SupplierCode = '".$scode."';";
         } 
         else if($remark) {
-            $sql0 = "update supplier set Remark = '".$remark."' where SupplierCode like '%".$scode."%';";
+            $sql0 = "update supplier set Remark = '".$remark."' where SupplierCode = '".$scode."';";
         }       
     }
     else {
-        $sql1 =  "select * from client where ClientCode like '".$ccode."';";
+        $sql1 =  "select * from client where ClientCode = '".$ccode."';";
         $result1 = mysqli_query($conn, $sql1);
         if(mysqli_num_rows($result1) > 0){
             $flag = 1;
@@ -150,28 +149,28 @@ function update($type){
             echo"No such client";
         }
         if($name && $addr ){
-            $sql0 = "update client set CompanyName = '".$name."', Address = '".$addr."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set CompanyName = '".$name."', Address = '".$addr."' where ClientCode = '".$ccode."';";
         }
         else if($email && $addr) {
-            $sql0 = "update client set Email = '".$email."' ,Address = '".$addr."'where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set Email = '".$email."' ,Address = '".$addr."'where ClientCode = '".$ccode."';";
         }
         else if($cnum && $addr) {
-            $sql0 = "update client set ContactNo = '".$cnum."',Address = '".$addr."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set ContactNo = '".$cnum."',Address = '".$addr."' where ClientCode = '".$ccode."';";
         }
         else if($name){
-            $sql0 = "update client set CompanyName = '".$name."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set CompanyName = '".$name."' where ClientCode = '".$ccode."';";
         } 
         else if($addr) {
-            $sql0 = "update client set Address = '".$addr."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set Address = '".$addr."' where ClientCode = '".$ccode."';";
         } 
         else if($email) {
-            $sql0 = "update client set Email = '".$email."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set Email = '".$email."' where ClientCode = '".$ccode."';";
         } 
         else if($cnum) {
-            $sql0 = "update client set ContactNo = '".$cnum."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set ContactNo = '".$cnum."' where ClientCode = '".$ccode."';";
         } 
         else if($remark) {
-            $sql0 = "update client set Remark = '".$remark."' where ClientCode like '%".$ccode."%';";
+            $sql0 = "update client set Remark = '".$remark."' where ClientCode = '".$ccode."';";
         } 
         
     }

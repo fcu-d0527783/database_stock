@@ -15,7 +15,7 @@
 
 <div class="container">
 <?php
-$servername = "localhost";
+$servername = "localhost"; 
 $username = "root";
 $password = "";
 $dbname = "stock";
@@ -46,57 +46,87 @@ else{
 
 function update(){
     global $conn,$ItemCode,$ItemDescription,$isActive, $wBatch, $Brand,$ItemType,$Location;
-    
-    if($ItemDescription){
-        $sql0 = "update product set ItemDescription = '".$ItemDescription."' where ItemCode like '%".$ItemCode."%';";
+    $flag=0;
+    $sql1 =  "select * from product where ItemCode = '".$ItemCode."';";
+    $result1 = mysqli_query($conn, $sql1);
+    if(mysqli_num_rows($result1) > 0){
+        $flag = 1;
+    }
+    else{
+        echo"No such product";
+    }
+    if($ItemDescription && $ItemType ){
+        $sql0 = "update product set ItemDescription = '".$ItemDescription."' ,ItemType = '".$ItemType."' where ItemCode = '".$ItemCode."';";
+    }
+    else if($Brand && $ItemType ) {
+        $sql0 = "update product set Brand = '".$Brand."' , ItemType = '".$ItemType."' where ItemCode = '".$ItemCode."';";
+    }
+    else if($ItemDescription && $Brand){
+        $sql0 = "update product set ItemDescription = '".$ItemDescription."' ,Brand = '".$Brand."'where ItemCode = '".$ItemCode."';";
     }
     else if($ItemType) {
-        $sql0 = "update product set ItemType = '".$ItemType."' where ItemCode like '%".$ItemCode."%';";
+        $sql0 = "update product set ItemType = '".$ItemType."' where ItemCode = '".$ItemCode."';";
     }
     else if($Brand) {
-        $sql0 = "update product set Brand = '".$Brand."' where ItemCode like '%".$ItemCode."%';";
+        $sql0 = "update product set Brand = '".$Brand."' where ItemCode = '".$ItemCode."';";
     }
     else if($Location) {
-        $sql0 = "update product set Location = '".$Location."' where ItemCode like '%".$ItemCode."%';";
+        $sql0 = "update product set Location = '".$Location."' where ItemCode = '".$ItemCode."';";
     }
     else if($isActive) {
-        $sql0 = "update product set isActive = '".$isActive."' where ItemCode like '%".$ItemCode."%';";
+        $sql0 = "update product set isActive = '".$isActive."' where ItemCode = '".$ItemCode."';";
     }
     else if($wBatch) {
-        $sql0 = "update product set wBatch = '".$wBatch."' where ItemCode like '%".$ItemCode."%';";
+        $sql0 = "update product set wBatch = '".$wBatch."' where ItemCode = '".$ItemCode."';";
     }
     
-    if ($conn->query($sql0) === TRUE) {
-        echo "<script>
+    if($flag == 1){
+        $result_po = mysqli_query($conn, $sql0);
+        if ($result_po) {
+            echo "<script>
              alert('Record update successfully');
              window.history.go(-1);
             </script>";
-    } else {
-        echo "<script>
+        } else {
+            echo "<script>
              alert('Error : Failed to update record');
                window.history.go(-1);
         </script>";
-        //echo "Error: ".$sql."<br>'.$conn->error;
-    }
+            //echo "Error: ".$sql."<br>'.$conn->error;
+        }
+        $flag=0;
+    }   
 }
 
 function delete(){
     global $conn,$ItemCode,$ItemDescription,$isActive, $wBatch, $Brand,$ItemType,$Location;
-    
+    $flag=0;
+    $sql1 =  "select * from product where ItemCode = '".$ItemCode."';";
+    $result1 = mysqli_query($conn, $sql1);
+    if(mysqli_num_rows($result1) > 0){
+        $flag = 1;
+    }
+    else{
+        echo"No such product";
+    }
     $sql0 = "delete from product where ItemCode = '".$ItemCode."';"; 
     
-    if ($conn->query($sql0) === TRUE) {
-        echo "<script>
-             alert('Record deleted successfully');
+    if($flag == 1){
+        $result_po = mysqli_query($conn, $sql0);
+        if ($result_po) {
+            echo "<script>
+             alert('Record delete successfully');
              window.history.go(-1);
-        </script>";
-    } else {
-        echo "<script>
+            </script>";
+        } else {
+            echo "<script>
              alert('Error : Failed to delete record');
                window.history.go(-1);
         </script>";
-        //echo "Error: ".$sql."<br>'.$conn->error;
-    }
+            //echo "Error: ".$sql."<br>'.$conn->error;
+        }
+        $flag=0;
+    }    
 }
 
 
