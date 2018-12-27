@@ -52,56 +52,137 @@
 
   function update($type){
     global $conn,$PONo,$SONo,$date,$itemcode,$batch,$qty,$client,$supplier,$employee,$expiredDate;
+    $flag = 0;
     if($type == "purchase"){
       if(!empty($PONo)){
         if(!empty($date)){
+          $sql_check_po = "select * from purchase_order where PONo = '".$PONo."';";
+          //update_purchase_order_date
+          $sql_u_po = "update purchase_order SET Date = '".$date."' where PONo = '".$PONo."';";
 
+          $result_check_po = mysqli_query($conn, $sql_check_po);
+          if(mysqli_num_rows($result_check_po) > 0){
+            $flag = 1;
+          }
+          else{
+            echo"No such purchase_order";
+          }
         }
-        else if(!empty($itemcode)){
+        else if(!empty($itemcode) && !empty($batch)){
+          if(!empty($qty)){
+            $sql_check_pobi = "select * from po_detail where PONo = '".$PONo."' AND ItemCode = '".$itemcode."' AND BatchNo = '".$batch."';";
+            //update qty
+            $sql_u_po = "update po_detail SET Qty = '".$qty."' WHERE PONo = '".$PONo."' AND ItemCode = '".$itemcode."' AND BatchNo = '".$batch."';";
 
-        }
-        else if(!empty($batch)){
-
-        }
-        else if(!empty($expiredDate)){
-
-        }
-        else if(!empty($qty)){
-
+            $result_check_pobi = mysqli_query($conn, $sql_check_pobi);
+            if(mysqli_num_rows($result_check_pobi) > 0){
+              $flag = 1;
+            }
+            else{
+              echo"No such order";
+            }
+          }
         }
         else if(!empty($supplier)){
+          $sql_check_po = "select * from purchase_order where PONo = '".$PONo."';";
+          //update_purchase_order_supplier
+          $sql_u_po = "update purchase_order SET SupplierCode = '".$supplier."' WHERE PONo = '".$PONo."';";
 
+          $result_check_po = mysqli_query($conn, $sql_check_po);
+          if(mysqli_num_rows($result_check_po) > 0){
+            $flag = 1;
+          }
+          else{
+            echo"No such purchase_order";
+          }
         }
         else if(!empty($employee)){
+          $sql_check_po = "select * from purchase_order where PONo = '".$PONo."';";
+          //update_purchase_order_employee
+          $sql_u_po = "update purchase_order SET EmployeeCode = '".$employee."' WHERE PONo = '".$PONo."';";
 
+          $result_check_po = mysqli_query($conn, $sql_check_po);
+          if(mysqli_num_rows($result_check_po) > 0){
+            $flag = 1;
+          }
+          else{
+            echo"No such purchase_order";
+          }
         }
+      }
+      else if(!empty($batch) && !empty($itemcode)){
+          if(!empty($expiredDate)){
+            $sqp_check_bi = "select * from batch where BatchNo = '".$batch."' AND ItemCode = '".$itemcode."';";
+            //change batch's expired date
+            $sql_u_po = "update batch SET ExpiredDate = '".$expiredDate."' WHERE BatchNo = '".$batch."' AND ItemCode = '".$itemcode."';";
+
+            $result_check_bi = mysqli_query($conn, $sqp_check_bi);
+            if(mysqli_num_rows($result_check_pobi) > 0){
+              $flag = 1;
+            }
+            else{
+              echo"No such batch";
+            }
+          }
+          else{
+            echo"No BatchNO && Itemcode";
+          }
       }
       else{
         echo"No PONo";
       }
-      //update_purchase_order
-      $sql_u_po = "insert into purchase_order values ('".$PONo."', '".$date."', '".$supplier."', '".$employee."');";
-      //update_po_detail
-      $sql_u_pd = "insert into po_detail values ('".$PONo."', '".$itemcode."', '".$batch."', '".$qty."');";
-      $result_po = mysqli_query($conn, $sql_u_po);
-      $result_pd = mysqli_query($conn, $sql_u_pd);
-
-      if ($conn->query($sql_u_pd) == TRUE && $conn->query($sql_u_po) == TRUE) {
+      if($flag == 1){
+        $result_po = mysqli_query($conn, $sql_u_po);
+        if ($result_po) {
+            echo "<script>
+                     alert('New record created successfully');
+                     window.history.go(-1);
+                </script>";
+        } else {
+            echo"<script>
+                     alert('Error : Failed to create new record'+'$conn->error');
+                       window.history.go(-1);
+                </script>" ;
+        }
+      }
+    }
+    else if($type == "sale"){
+      if(!empty($SONo)){
+        if(!empty($date)){
+        //update_purchase_order_date
+        $sql_u_so = "update sale_order SET Date = '".$date."' where SONo = '".$SONo."';";
+        }
+        else if(!empty($itemcode) && !empty($batch)){
+          if(!empty($qty)){
+            //update qty
+            $sql_u_so = "update so_detail SET Qty = '".$qty."' WHERE SONo = '".$SONo."' AND ItemCode = '".$itemcode."' AND BatchNo = '".$batch."';";
+          }
+        }
+        else if(!empty($client)){
+        //update_purchase_order_supplier
+        $sql_u_so = "update sale_order SET ClientCode = '".$client."' WHERE SONo = '".$SONo."';";
+        }
+        else if(!empty($employee)){
+        //update_purchase_order_employee
+        $sql_u_so = "update sale_order SET EmployeeCode = '".$employee."' WHERE SONo = '".$SONo."';";
+        }
+      }
+      else{
+        echo"No SONo";
+      }
+      $result_so = mysqli_query($conn, $sql_u_so);
+      if ($result_so) {
           echo "<script>
                    alert('New record created successfully');
                    window.history.go(-1);
               </script>";
       } else {
-          echo "<script>
+          /*echo"<script>
                    alert('Error : Failed to create new record');
                      window.history.go(-1);
-              </script>";
-          //echo "Error: ".$sql."<br>'.$conn->error;
-
+              </script>" ;*/
+              echo $conn->error;
       }
-    }
-    else if($type == "sale"){
-
     }
   }
 
