@@ -326,13 +326,17 @@ ALTER TABLE `batch`
 ALTER TABLE `client`
   ADD PRIMARY KEY (`ClientCode`),
   ADD UNIQUE KEY `CompanyName` (`CompanyName`);
+  ADD UNIQUE KEY `Address` (`Address`);
+  ADD UNIQUE KEY `ContactNo`(`ContactNo`);
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`EmployeeCode`);
-
+  ADD UNIQUE KEY `ContactNo` (`ContactNo`);
+  
 --
 -- Indexes for table `location`
 --
@@ -384,6 +388,9 @@ ALTER TABLE `so_detail`
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`SupplierCode`),
   ADD UNIQUE KEY `CompanyName` (`CompanyName`);
+  ADD UNIQUE KEY `Address` (`Address`);
+  ADD UNIQUE KEY `ContactNo`(`ContactNo`);
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Constraints for dumped tables
