@@ -34,7 +34,7 @@
     <div class="col-sm-6">
       <h3>供應商、客戶</h3>
       <a href="./company/company_search.html">新增、查詢買/賣家資料<br/></a>
-      <a href="./company/company_change.html">更改、刪除買/賣家資料</a>
+      <a href="./company/company_change.html">修改、刪除買/賣家資料</a>
     </div>
     <div class="col-sm-6">
       <h3>便捷查詢</h3>

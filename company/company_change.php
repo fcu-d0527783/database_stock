@@ -50,8 +50,16 @@ else{
 
 function delete($type){
     global $conn,$ccode,$scode,$name,$addr,$cnum,$remark,$email;
-   
+    $flag=0;
     if($type =="supplier") {
+        $sql1 =  "select * from supplier where SupplierCode like '".$scode."';";
+        $result1 = mysqli_query($conn, $sql1);
+        if(mysqli_num_rows($result1) > 0){
+            $flag = 1;
+        }
+        else{
+            echo"No such supplier";
+        }
         if($scode){
             $sql0 = "delete from supplier where SupplierCode like '%".$scode."%';";
         } 
@@ -60,6 +68,14 @@ function delete($type){
         }       
     }
     else {
+        $sql1 =  "select * from client where ClientCode like '".$ccode."';";
+        $result1 = mysqli_query($conn, $sql1);
+        if(mysqli_num_rows($result1) > 0){
+            $flag = 1;
+        }
+        else{
+            echo"No such client";
+        }
         if($ccode){         
            $sql0 = "delete from client where ClientCode like '%".$ccode."%';";
         } 
@@ -68,24 +84,47 @@ function delete($type){
         }  
     }
     
-    if ($conn->query($sql0) === TRUE) {
-        echo "<script>
-             alert('Record deleted successfully');
+    if($flag == 1){
+        $result_po = mysqli_query($conn, $sql0);
+        if ($result_po) {
+            echo "<script>
+             alert('Record delete successfully');
              window.history.go(-1);
-        </script>";
-    } else {
-        echo "<script>
+            </script>";
+        } else {
+            echo "<script>
              alert('Error : Failed to delete record');
                window.history.go(-1);
         </script>";
-        //echo "Error: ".$sql."<br>'.$conn->error;
+            //echo "Error: ".$sql."<br>'.$conn->error;
+        }
+        $flag=0;
     }
+    
 }
 
 function update($type){
-    global $conn,$scode,$ccode,$name,$addr,$cnum,$remark,$email;  
+    global $conn,$scode,$ccode,$name,$addr,$cnum,$remark,$email; 
+    $flag=0;
     if($type =="supplier")   {
-        if($name){
+        $sql1 =  "select * from supplier where SupplierCode like '".$scode."';";
+        $result1 = mysqli_query($conn, $sql1);
+        if(mysqli_num_rows($result1) > 0){
+            $flag = 1;
+        }
+        else{
+            echo"No such supplier";
+        }
+        if($name && $addr ){           
+            $sql0 = "update supplier set CompanyName = '".$name."', Address = '".$addr."' where SupplierCode like '%".$scode."%';";
+        } 
+        else if($email && $addr) {
+            $sql0 = "update supplier set Email = '".$email."' ,Address = '".$addr."'where SupplierCode like '%".$scode."%';";
+        }
+        else if($cnum && $addr) {
+            $sql0 = "update supplier set ContactNo = '".$cnum."',Address = '".$addr."' where SupplierCode like '%".$scode."%';";
+        }
+        else if($name){
             $sql0 = "update supplier set CompanyName = '".$name."' where SupplierCode like '%".$scode."%';";
         } 
         else if($addr) {
@@ -102,7 +141,24 @@ function update($type){
         }       
     }
     else {
-        if($name){
+        $sql1 =  "select * from client where ClientCode like '".$ccode."';";
+        $result1 = mysqli_query($conn, $sql1);
+        if(mysqli_num_rows($result1) > 0){
+            $flag = 1;
+        }
+        else{
+            echo"No such client";
+        }
+        if($name && $addr ){
+            $sql0 = "update client set CompanyName = '".$name."', Address = '".$addr."' where ClientCode like '%".$ccode."%';";
+        }
+        else if($email && $addr) {
+            $sql0 = "update client set Email = '".$email."' ,Address = '".$addr."'where ClientCode like '%".$ccode."%';";
+        }
+        else if($cnum && $addr) {
+            $sql0 = "update client set ContactNo = '".$cnum."',Address = '".$addr."' where ClientCode like '%".$ccode."%';";
+        }
+        else if($name){
             $sql0 = "update client set CompanyName = '".$name."' where ClientCode like '%".$ccode."%';";
         } 
         else if($addr) {
@@ -119,7 +175,9 @@ function update($type){
         } 
         
     }
-    if ($conn->query($sql0) === TRUE) {
+    if($flag == 1){
+        $result_po = mysqli_query($conn, $sql0);
+        if ($result_po) {
         echo "<script>
              alert('Record update successfully');
              window.history.go(-1);
@@ -130,6 +188,8 @@ function update($type){
                window.history.go(-1);
         </script>";
         //echo "Error: ".$sql."<br>'.$conn->error;
+      }
+      $flag=0;
     }
     
 }
