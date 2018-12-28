@@ -149,111 +149,145 @@
     else if($type == "sale"){
       if(!empty($SONo)){
         if(!empty($date)){
+          $sql_check_so = "select * from sale_order where SONo = '".$SONo."';";
+          $result_check_so = mysqli_query($conn, $sql_check_so);
+          if(mysqli_num_rows($result_check_so) > 0){
+            $flag = 1;
+          }
+          else{
+            echo"<script>alert('NO such sale_order')</script>";
+          }
         //update_purchase_order_date
         $sql_u_so = "update sale_order SET Date = '".$date."' where SONo = '".$SONo."';";
         }
         else if(!empty($itemcode) && !empty($batch)){
           if(!empty($qty)){
+            $sql_check_sobi = "select * from so_detail where SONo = '".$SONo."' AND ItemCode = '".$itemcode."' AND BatchNo = '".$batch."';";
+            $result_check_sobi = mysqli_query($conn, $sql_check_sobi);
+            if(mysqli_num_rows($result_check_sobi) > 0){
+              $flag = 1;
+            }
+            else{
+              echo"No such order";
+            }
             //update qty
             $sql_u_so = "update so_detail SET Qty = '".$qty."' WHERE SONo = '".$SONo."' AND ItemCode = '".$itemcode."' AND BatchNo = '".$batch."';";
           }
         }
         else if(!empty($client)){
+          $sql_check_so = "select * from sale_order where SONo = '".$SONo."';";
+          $result_check_so = mysqli_query($conn, $sql_check_so);
+          if(mysqli_num_rows($result_check_so) > 0){
+            $flag = 1;
+          }
+          else{
+            echo"<script>alert('NO such sale_order')</script>";
+          }
         //update_purchase_order_supplier
         $sql_u_so = "update sale_order SET ClientCode = '".$client."' WHERE SONo = '".$SONo."';";
         }
         else if(!empty($employee)){
+          $sql_check_so = "select * from sale_order where SONo = '".$SONo."';";
+          $result_check_so = mysqli_query($conn, $sql_check_so);
+          if(mysqli_num_rows($result_check_so) > 0){
+            $flag = 1;
+          }
+          else{
+            echo"<script>alert('NO such sale_order')</script>";
+          }
         //update_purchase_order_employee
         $sql_u_so = "update sale_order SET EmployeeCode = '".$employee."' WHERE SONo = '".$SONo."';";
         }
       }
       else{
-        echo"No SONo";
+        echo"<script>alert('NO such SONo')</script>";
       }
-      $result_so = mysqli_query($conn, $sql_u_so);
-      if ($result_so) {
-          echo "<script>
-                   alert('New record created successfully');
-                   window.history.go(-1);
-              </script>";
-      } else {
-          /*echo"<script>
-                   alert('Error : Failed to create new record');
+
+      if($flag == 1){
+        $result_so = mysqli_query($conn, $sql_u_so);
+        if ($result_so) {
+            echo "<script>
+                     alert('New record created successfully');
                      window.history.go(-1);
-              </script>" ;*/
-              echo $conn->error;
+                </script>";
+        } else {
+            echo"<script>
+                     alert('Error : Failed to create new record'+'$conn->error');
+                       window.history.go(-1);
+                </script>" ;
+        }
       }
     }
   }
 
   function delet($type){
+    $flag = 0;
     global $conn,$PONo,$SONo,$client,$supplier,$employee;
     if($type == "purchase"){
       //delete_purchase
       if(!empty($PONo)){
-        $sql_d_p = "select * from purchase_order AS P, po_detail AS D where P.PONo = '".$PONo."' AND P.PONo = D.PONo;";
-        $result_d_p = mysqli_query($conn, $sql_d_p);
-      }
-      else if(!empty($supplier)){
-        $sql_d_p = "select * from purchase_order AS P, po_detail AS D where P.SupplierCode = '".$supplier."' AND P.PONo = D.PONo;";
-        $result_d_p = mysqli_query($conn, $sql_d_p);
-      }
-      else if(!empty($employee)){
-        $sql_d_p = "select * from purchase_order AS P, po_detail AS D where P.EmployeeCode = '".$employee."' AND P.PONo = D.PONo;";
-        $result_d_p = mysqli_query($conn, $sql_d_p);
-      }
-
-      if(mysqli_num_rows($result_d_p) > 0){
-        echo
-        "<table class=\"table\">
-        <tr>
-        <th>Purchase Order</th>
-        </tr>
-          <tbody>
-        <tr> <td>PONo</td> <td>Date</td> <td>ItemCode</td> <td>BatchNo</td> <td>Quantity</td>  <td>SupplierCode</td> <td>EmployeeCode</td> </tr>
-         ";
-        while($row = mysqli_fetch_assoc($result_d_p)){
-          echo
-          "
-          <td>".$row["PONo"]."</td><td>".$row["Date"]."</td> <td>".$row["ItemCode"]."</td> <td>".$row["BatchNo"]."</td>
-          <td>".$row["Qty"]."</td><td>".$row["SupplierCode"]."</td><td>".$row["EmployeeCode"]."</td></tr>
-          ";
+        $sql_check_po = "select * from po_detail where PONo = '".$PONo."';";
+        $result_check_po = mysqli_query($conn, $sql_check_po);
+          if(mysqli_num_rows($result_check_po) > 0){
+          $flag = 1;
+          $sql_d_p = "delete from purchase_order where PONo = '".$PONo."';";
+          $result_d_p = mysqli_query($conn, $sql_d_p);
+          while($row = mysqli_fetch_assoc($result_check_po)){
+            $sql_d_b = "delete from batch where BatchNo = '".$row["BatchNo"]."';";
+            $result_d_b = mysqli_query($conn, $sql_d_b);
+          }
         }
-        echo"
-        </tbody>
-        </table>";
+        else{
+          echo"<script>alert('NO such purchase_order')</script>";
+        }
       }
       else{
-        echo "Search failed";
+        echo"<script>alert('Please input PONo to delete')</script>";
+      }
+
+      if($flag == 1){
+        if ($result_d_p && $result_d_b) {
+          echo "<script>
+                   alert('Delete record successfully');
+                   window.history.go(-1);
+              </script>";
+      } else {
+          echo"<script>
+                   alert('Error : Failed to delete a record');
+                     window.history.go(-1);
+              </script>" ;
+        }
       }
     }
     else if($type == "sale"){
-      //delete_sale
-      $sql_d_s = "select * from sale_order AS S,so_detail AS D where S.SONo = '".$SONo."' AND D.SONo = S.SONo;";
-      $result_d_s = mysqli_query($conn, $sql_d_s);
-      if(mysqli_num_rows($result_d_s) > 0){
-        while($row = mysqli_fetch_assoc($result_d_s)){
-          echo
-          "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Purchase Order</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>SNo : </td><td>".$row["SONo"]."</td></tr>
-          <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
-          <tr> <td>ItemCode :</td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>Quantity :</td><td>".$row["Qty"]."</td></tr>
-          <tr> <td>ClientCode :</td><td>".$row["ClientCode"]."</td></tr>
-          <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
-          </tbody>
-          </table>";
+      if(!empty($SONo)){
+        $sql_check_so = "select * from sale_order where SONo = '".$SONo."';";
+        $result_check_so = mysqli_query($conn, $sql_check_so);
+          if(mysqli_num_rows($result_check_so) > 0){
+          $flag = 1;
+          $sql_d_s = "delete from sale_order where SONo = '".$SONo."';";
+          $result_d_s = mysqli_query($conn, $sql_d_s);
+        }
+        else{
+          echo"<script>alert('NO such sale_order')</script>";
         }
       }
       else{
-        echo "Search failed";
+        echo"<script>alert('Please input SONo to delete')</script>";
+      }
+
+      if($flag == 1){
+        if ($result_d_s) {
+            echo "<script>
+                     alert('Delete record successfully');
+                     window.history.go(-1);
+                </script>";
+        } else {
+            echo"<script>
+                     alert('Error : Failed to delete a record');
+                       window.history.go(-1);
+                </script>" ;
+        }
       }
     }
   }
