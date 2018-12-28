@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 新 Bootstrap 核心 CSS 文件 -->
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
   <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -23,7 +23,7 @@ $dbname = "stock";
 
 $type = $_POST["company"];  //echo $type;
 $ccode = $_POST["ClientCode"];  //echo $code;
-$scode = $_POST["SupplierCode"]; 
+$scode = $_POST["SupplierCode"];
 $name = $_POST["CompanyName"];  //echo $name;
 $addr = $_POST["Address"];  //echo $addr;
 $cnum = $_POST["ContactNo"];  //echo $cnum;
@@ -62,10 +62,10 @@ function delete($type){
         }
         if($scode){
             $sql0 = "delete from supplier where SupplierCode = '".$scode."';";
-        } 
+        }
         else if($name){
            $sql0 = "delete from supplier where CompanyName = '".$name."';";
-        }       
+        }
     }
     else {
         $sql1 =  "select * from client where ClientCode = '".$ccode."';";
@@ -76,14 +76,14 @@ function delete($type){
         else{
             echo"No such client";
         }
-        if($ccode){         
+        if($ccode){
            $sql0 = "delete from client where ClientCode = '".$ccode."';";
-        } 
+        }
         else if($name){
            $sql0 = "delete from client where CompanyName = '".$name."';";
-        }  
+        }
     }
-    
+
     if($flag == 1){
         $result_po = mysqli_query($conn, $sql0);
         if ($result_po) {
@@ -99,11 +99,11 @@ function delete($type){
             //echo "Error: ".$sql."<br>'.$conn->error;
         }
         $flag=0;
-    } 
+    }
 }
 
 function update($type){
-    global $conn,$scode,$ccode,$name,$addr,$cnum,$remark,$email; 
+    global $conn,$scode,$ccode,$name,$addr,$cnum,$remark,$email;
     $flag=0;
     if($type =="supplier")   {
         $sql1 =  "select * from supplier where SupplierCode = '".$scode."';";
@@ -114,9 +114,9 @@ function update($type){
         else{
             echo"No such supplier";
         }
-        if($name && $addr ){           
+        if($name && $addr ){
             $sql0 = "update supplier set CompanyName = '".$name."', Address = '".$addr."' where SupplierCode = '".$scode."';";
-        } 
+        }
         else if($email && $addr) {
             $sql0 = "update supplier set Email = '".$email."' ,Address = '".$addr."'where SupplierCode = '".$scode."';";
         }
@@ -125,19 +125,19 @@ function update($type){
         }
         else if($name){
             $sql0 = "update supplier set CompanyName = '".$name."' where SupplierCode = '".$scode."';";
-        } 
+        }
         else if($addr) {
             $sql0 = "update supplier set Address = '".$addr."' where SupplierCode = '".$scode."';";
-        } 
+        }
         else if($email) {
             $sql0 = "update supplier set Email = '".$email."' where SupplierCode = '".$scode."';";
-        } 
+        }
         else if($cnum) {
             $sql0 = "update supplier set ContactNo = '".$cnum."' where SupplierCode = '".$scode."';";
-        } 
+        }
         else if($remark) {
             $sql0 = "update supplier set Remark = '".$remark."' where SupplierCode = '".$scode."';";
-        }       
+        }
     }
     else {
         $sql1 =  "select * from client where ClientCode = '".$ccode."';";
@@ -159,20 +159,20 @@ function update($type){
         }
         else if($name){
             $sql0 = "update client set CompanyName = '".$name."' where ClientCode = '".$ccode."';";
-        } 
+        }
         else if($addr) {
             $sql0 = "update client set Address = '".$addr."' where ClientCode = '".$ccode."';";
-        } 
+        }
         else if($email) {
             $sql0 = "update client set Email = '".$email."' where ClientCode = '".$ccode."';";
-        } 
+        }
         else if($cnum) {
             $sql0 = "update client set ContactNo = '".$cnum."' where ClientCode = '".$ccode."';";
-        } 
+        }
         else if($remark) {
             $sql0 = "update client set Remark = '".$remark."' where ClientCode = '".$ccode."';";
-        } 
-        
+        }
+
     }
     if($flag == 1){
         $result_po = mysqli_query($conn, $sql0);
@@ -190,23 +190,11 @@ function update($type){
       }
       $flag=0;
     }
-    
-}
-/*
 
-
-/*
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "Client Code: " . $row["ClientCode"]. " - Company Name: " . $row["CompanyName"]. " - Address: " . $row["Address"]. " - Contact Number: " . $row["ContactNo"]. " - Email: " . $row["Email"]. " - Remark: " . $row["Remark"]. "<br>";
-    }
-} else {
-    echo "0 results";
 }
-*/
+
 mysqli_close($conn);
-?> 
+?>
 </div>
 
 </body>

@@ -27,9 +27,9 @@
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
- 
+
   $ItemCode = $_POST["ItemCode"];
- 
+
   $BatchNo = $_POST["BatchNo"];
   echo
   "<table class=\"table\">
@@ -37,13 +37,13 @@
         <th>Search Deadline</th>
         </tr>
           <tbody>
-        <tr> <td>ItemCode</td> <td>BatchNo</td> <td>ExpiredDate</td>  <td>Days</td>  </tr>
+        <tr> <td style='width:20%'>ItemCode</td> <td style='width:20%'>BatchNo</td> <td style='width:20%'>ExpiredDate</td>
+          <td style='width:20%'>Remaining Days</td>  <td style='width:20%'>Stock</td></tr>
          ";
 
   //button "search"
- 
+
   if($_POST["buttonType"] == 'Search'){
- 
       search($_POST["search"]);
   }
   else if ($_POST["buttonType"] == 'Show All'){
@@ -51,34 +51,41 @@
   }
   function show(){
       global $conn,$ItemCode,$search,$BatchNo;
-      $sql_show = "select  * from batch  where   ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY) ;" ;
+      $sql_show = "select * from batch where  ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY) ;" ;
       $result_show = mysqli_query($conn, $sql_show);
       $getDate = date("y-m-d");
+
       while($row = mysqli_fetch_assoc($result_show)){
+        $BatchNo = $row["BatchNo"];
+        $sql_stock = "select * from stkbalancebybatch where BatchNO = '$BatchNo';";
+        $result_stock = mysqli_query($conn, $sql_stock);
+
+          $row1 = mysqli_fetch_assoc($result_stock);
           $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
           $difff = strtotime($diff);
           $difff/=86400;
           $a = round($difff,0);
-          
+
           echo
           "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-      
-          
-          
-      }    
+          <td style='width:20%'>".$row["ItemCode"]."</td><td style='width:20%'>".$row["BatchNo"]."</td>
+          <td style='width:20%'>".$row["ExpiredDate"]."</td> <td style='width:20%'>".$a."</td>
+           <td style='width:20%'>".$row1["Balance"]."</td><tr>";
+
+
+
+      }
       echo "
         </tbody>
       </table>";
   }
 
-  
+
   function search($type){
       global $conn,$ItemCode,$search,$BatchNo;
     $getDate = date("y-m-d");
     if(!empty($ItemCode)){
     if($type == "One Week"){
-  
         $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 7 DAY)  ;" ;
         $result_d = mysqli_query($conn, $sql_d);
 
@@ -87,66 +94,68 @@
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-          
+
               echo
               "
-    <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-         
-       
+    <td style='width:20%'>".$row["ItemCode"]."</td><td style='width:20%'>".$row["BatchNo"]."</td>
+     <td style='width:20%'>".$row["ExpiredDate"]."</td> <td style='width:20%'>".$a."</td><tr>";
+
+
             }
             echo"
           </tbody>
           </table>";
     }
   else if($type == "Two Weeks"){
-               
+
       $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
                 $result_d = mysqli_query($conn, $sql_d);
-                
+
                 while($row = mysqli_fetch_assoc($result_d)){
                     $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
                     $difff = strtotime($diff);
                     $difff/=86400;
                     $a = round($difff,0);
-                  
+
                         echo
-                      
+
                         "
-    <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-                    
+    <td style='width:20%'>".$row["ItemCode"]."</td><td style='width:20%'>".$row["BatchNo"]."</td> <td style='width:20%'>".$row["ExpiredDate"]."</td>
+     <td style='width:20%'>".$a."</td><tr>";
+
                 }
                 echo"
           </tbody>
           </table>";
             }
             else if($type == "One Month"){
-        
+
                 $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 30 DAY)    ;" ;
                     $result_d = mysqli_query($conn, $sql_d);
-                    
+
                     while($row = mysqli_fetch_assoc($result_d)){
                         //1970-01-01
                         $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
                         $difff = strtotime($diff);
                         $difff/=86400;
                         $a = round($difff,0);
-                       
-                          
+
+
                             echo
                             "
              <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
                    }
                    echo " </tbody>
             </table>";
-                    
-                    
+
+
             }
-            
+
            else if($type == "Three Months"){
 
                $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
                 $result_d = mysqli_query($conn, $sql_d);
-                
+
                 while($row = mysqli_fetch_assoc($result_d)){
                     //1970-01-01
                     $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
@@ -156,106 +165,106 @@
                         echo
                         "
               <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-                    
+
                 }
                 echo " </tbody>
             </table>";
             }
     }
-        
+
     else if(!empty($BatchNo)){
         if($type == "One Week"){
-            
+
             $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 7 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
-            
+
             while($row = mysqli_fetch_assoc($result_d)){
                 $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-                
+
                 echo
                 "
              <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-     
+
             }
              echo " </tbody>
             </table>";
         }
         else if($type == "Two Weeks"){
-            
+
             $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 14 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
-            
+
             while($row = mysqli_fetch_assoc($result_d)){
                 $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-                
+
                     echo
-                    
+
                     "
              <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-                
+
             }
             echo " </tbody>
             </table>";
         }
         else if($type == "One Month"){
-            
+
             $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 30 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
-            
+
             while($row = mysqli_fetch_assoc($result_d)){
                 //1970-01-01
                 $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-               
-                    
+
+
                     echo
                     "
               <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
-                
+
             }
             echo " </tbody>
             </table>";
 
         }
-        
+
         else if($type == "Three Months"){
-            
+
             $sql_d = "select * from batch where BatchNo = '".$BatchNo."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
             $result_d = mysqli_query($conn, $sql_d);
-            
+
             while($row = mysqli_fetch_assoc($result_d)){
                 //1970-01-01
                 $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-     
+
                     echo
                     "
             <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
- 
-      
-                
-            }  
+
+
+
+            }
             echo " </tbody>
             </table>";
         }
-        
-        
+
+
     }
 
   }
-  
-  
-  
+
+
+
 ?>
 </div>
 
