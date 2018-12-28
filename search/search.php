@@ -27,7 +27,7 @@
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-  $type = $_POST["search"];
+ 
   $ItemCode = $_POST["ItemCode"];
  
   $BatchNo = $_POST["BatchNo"];
@@ -43,9 +43,34 @@
   //button "search"
  
   if($_POST["buttonType"] == 'Search'){
-    search($_POST["search"]);
+ 
+      search($_POST["search"]);
   }
-
+  else if ($_POST["buttonType"] == 'Show All'){
+      show();
+  }
+  function show(){
+      global $conn,$ItemCode,$search,$BatchNo;
+      $sql_show = "select * from batch where  ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
+      $result_show = mysqli_query($conn, $sql_show);
+      $getDate = date("y-m-d");
+      while($row = mysqli_fetch_assoc($result_show)){
+          $diff = date ("y-m-d" , strtotime($row["ExpiredDate"])-strtotime($getDate));
+          $difff = strtotime($diff);
+          $difff/=86400;
+          $a = round($difff,0);
+          
+          echo
+          "
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td></tr>";
+      
+          
+          
+      }    
+      echo "
+        </tbody>
+      </table>";
+  }
 
   
   function search($type){
@@ -65,12 +90,13 @@
           
               echo
               "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-
-          </tbody>
-          </table>";
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+         
        
             }
+            echo"
+          </tbody>
+          </table>";
     }
   else if($type == "Two Weeks"){
                
@@ -86,14 +112,12 @@
                         echo
                       
                         "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-                        
-                        
-                        
-          </tbody>
-          </table>";
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
                     
                 }
+                echo"
+          </tbody>
+          </table>";
             }
             else if($type == "One Month"){
         
@@ -110,13 +134,10 @@
                           
                             echo
                             "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-                            
-                            
-                            
-          </tbody>
-          </table>";
-                        }
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+                   }
+                   echo " </tbody>
+            </table>";
                     
                     
             }
@@ -132,19 +153,13 @@
                     $difff = strtotime($diff);
                     $difff/=86400;
                     $a = round($difff,0);
-                    
-                   
-                        
                         echo
                         "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-                        
-                        
-                        
-          </tbody>
-          </table>";
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
                     
                 }
+                echo " </tbody>
+            </table>";
             }
     }
         
@@ -162,12 +177,11 @@
                 
                 echo
                 "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-                
-          </tbody>
-          </table>";
-                
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+     
             }
+             echo " </tbody>
+            </table>";
         }
         else if($type == "Two Weeks"){
             
@@ -183,14 +197,11 @@
                     echo
                     
                     "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-                
-                
-                
-          </tbody>
-          </table>";
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
                 
             }
+            echo " </tbody>
+            </table>";
         }
         else if($type == "One Month"){
             
@@ -207,15 +218,12 @@
                     
                     echo
                     "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
-                
-                
-                
-          </tbody>
-          </table>";
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
                 
             }
-            
+            echo " </tbody>
+            </table>";
+
         }
         
         else if($type == "Three Months"){
@@ -229,25 +237,25 @@
                 $difff = strtotime($diff);
                 $difff/=86400;
                 $a = round($difff,0);
-                
-                
-                    
+     
                     echo
                     "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+ 
+      
                 
-                
-                
-          </tbody>
-          </table>";
-                
-            }
+            }  
+            echo " </tbody>
+            </table>";
         }
         
         
     }
 
   }
+  
+  
+  
 ?>
 </div>
 
