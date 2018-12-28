@@ -45,8 +45,8 @@ INSERT INTO `batch` (`BatchNo`, `ItemCode`, `ExpiredDate`) VALUES
 ('20171113C4', 'L0003', '2019-09-11'),
 ('20171225D1', 'C0002', '2019-05-28'),
 ('20171225D2', 'C0002', '2019-05-30'),
-('20171225H2', 'C0002', '2019-06-30'),
-('20171225H3', 'C0002', '2019-06-25'),
+('20171225H2', 'C0002', '2019-02-30'),
+('20171225H3', 'C0002', '2019-03-25'),
 ('20180125D1', 'L0018', '2021-02-15'),
 ('20180823A1', 'T0001', '2020-04-24'),
 ('20180926B1', 'T0001', '2020-06-30'),
@@ -98,8 +98,8 @@ INSERT INTO `employee` (`EmployeeCode`, `Name`, `ContactNo`) VALUES
 ('0001', 'Jiaze', '0932517250'),
 ('0002', 'Tina', '0901234789'),
 ('0023', 'Aloysia', '0966-754-615'),
-('0088', 'Moses', '0903-220-077');
-('0133', 'Andy', '0903-908-572');
+('0088', 'Moses', '0903-220-077'),
+('0133', 'Andy', '0903-908-572'),
 ('0256', 'Ted', '0951-267-958');
 
 -- --------------------------------------------------------
@@ -177,12 +177,11 @@ INSERT INTO `product` (`ItemCode`, `ItemDescription`, `ItemType`, `Brand`, `Loca
 ('L0003', 'Whitening Lotion', 'Lotion', 'Dr.Satin', 'BA-1F-1D', 1, 1),
 ('L0018', 'Hydrating Lotion', 'Lotion', 'Naruko', 'BA-1F-1B', 1, 1),
 ('I0033', 'Moisture Lotion', 'Lotion', 'Shiseido ', 'BA-1F-1C', 1, 1),
-('W1200', 'Refreshing Primer', 'Primer', 'CPB ', 'BA-1F-1C', 1, 1),
 ('MISS', 'Missing Product', NULL, NULL, NULL, 1, 0),
 ('S0001', 'Hydrating Sunblock', 'Sunblock', 'Avene', 'BA-2F-2D', 1, 1),
-('H0005', 'Refreshing Sunblock', 'Sunblock', 'Shiseido', 'BA-2F-2B', 1, 1),
+('D0005', 'Refreshing Sunblock', 'Sunblock', 'Shiseido', 'BA-2F-2B', 1, 1),
 ('T0001', 'Hydrating Toner', 'Toner', 'Dr.Satin', 'BA-1F-1D', 1, 1),
-('S0001', 'Hydrating Mask', 'Mask', 'SK-II', 'BA-2F-2C', 1, 1),
+('N0002', 'Hydrating Mask', 'Mask', 'SK-II', 'BA-2F-2C', 1, 1),
 ('H0002', 'Anti-aging Essence', 'Essence', 'Shiseido', 'BA-2F-2B', 1, 1);
 
 -- --------------------------------------------------------
@@ -305,8 +304,6 @@ INSERT INTO `supplier` (`SupplierCode`, `CompanyName`, `Address`, `ContactNo`, `
 ('R001', 'Shiseido Company, Limited', '1-6-2, Higashi-shimbashi, Minato-ku, Tokyo 105-8310, Japan', '+1-883-572-5111', 'customerservice@shiseido.com', 'Shiseido'),
 ('S005', 'Procter & Gamble (P&G) ', '1-2 Procter and Gamble Plaza,Cincinnati,OH 45201,United States', '1-866-678-1770', 'customerservice@shop.sk-ii.com', 'SK-II'),
 ('D001', 'Delloyd Industries (M) Sdn Bhd', 'Lot 33004/5, Jalan Kebun, Techno Industrial Park, 42450 Klang, Selangor, Malaysia', '+60 3-5163 6888', 'sales@delloyd.com', 'Dr.Satin'),
-('B111', 'Shiseido Company, Limited', '1-6-2, Higashi-shimbashi, Minato-ku, Tokyo 105-8310, Japan', '1-888-678-5574', 'customercare@cledepeaubeaute.com', 'CPB'),
-('T005', '', '', '', '', ''),
 ('W005', 'Well Done', '', '', '', '');
 
 -- --------------------------------------------------------
@@ -343,18 +340,18 @@ ALTER TABLE `batch`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`ClientCode`),
-  ADD UNIQUE KEY `CompanyName` (`CompanyName`);
-  ADD UNIQUE KEY `Address` (`Address`);
-  ADD UNIQUE KEY `ContactNo`(`ContactNo`);
+  ADD UNIQUE KEY `CompanyName` (`CompanyName`),
+  ADD UNIQUE KEY `Address` (`Address`),
+  ADD UNIQUE KEY `ContactNo`(`ContactNo`),
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
-  ADD PRIMARY KEY (`EmployeeCode`);
+  ADD PRIMARY KEY (`EmployeeCode`),
   ADD UNIQUE KEY `ContactNo` (`ContactNo`);
-  
+
 --
 -- Indexes for table `location`
 --
@@ -405,9 +402,9 @@ ALTER TABLE `so_detail`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`SupplierCode`),
-  ADD UNIQUE KEY `CompanyName` (`CompanyName`);
-  ADD UNIQUE KEY `Address` (`Address`);
-  ADD UNIQUE KEY `ContactNo`(`ContactNo`);
+  ADD UNIQUE KEY `CompanyName` (`CompanyName`),
+  ADD UNIQUE KEY `Address` (`Address`),
+  ADD UNIQUE KEY `ContactNo`(`ContactNo`),
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
