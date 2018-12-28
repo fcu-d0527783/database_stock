@@ -64,7 +64,7 @@
       $result_pbatch = mysqli_query($conn, $sql_i_batch);
       $result_pd = mysqli_query($conn, $sql_i_pd);
 
-      if ($result_po && $result_pd && $result_pbatch) {
+      if ($result_pd && $result_pbatch) {
           echo "<script>
                    alert('New record created successfully');
                    window.history.go(-1);
@@ -75,6 +75,7 @@
                    alert('Error : Failed to create new record');
                      window.history.go(-1);
               </script>" ;
+          //echo  $conn->error;
       }
     }
     else if($type == "sale"){
@@ -106,7 +107,9 @@
         }
       }
       else{
-        echo "Error! LOW STOCK";
+        echo "<script>
+                 alert('Error! LOW STOCK');
+            </script>";
       }
     }
   }
@@ -140,13 +143,14 @@
         <th>Purchase Order</th>
         </tr>
           <tbody>
-        <tr> <td>PONo</td> <td>Date</td> <td>ItemCode</td> <td>BatchNo</td> <td>Quantity</td>  <td>SupplierCode</td> <td>EmployeeCode</td> </tr>
+        <tr> <td style='width:14%'>PONo</td> <td style='width:14%'>Date</td> <td style='width:14%'>ItemCode</td> <td style='width:14%'>BatchNo</td>
+             <td style='width:14%'>Quantity</td>  <td style='width:14%'>SupplierCode</td> <td style='width:14%'>EmployeeCode</td> </tr>
          ";
         while($row = mysqli_fetch_assoc($result_s_p)){
           echo
           "
-          <td>".$row["PONo"]."</td><td>".$row["Date"]."</td> <td>".$row["ItemCode"]."</td> <td>".$row["BatchNo"]."</td>
-          <td>".$row["Qty"]."</td><td>".$row["SupplierCode"]."</td><td>".$row["EmployeeCode"]."</td></tr>
+          <td style='width:14%'>".$row["PONo"]."</td><td style='width:14%'>".$row["Date"]."</td> <td style='width:14%'>".$row["ItemCode"]."</td> <td style='width:14%'>".$row["BatchNo"]."</td>
+          <td style='width:14%'>".$row["Qty"]."</td><td style='width:14%'>".$row["SupplierCode"]."</td><td style='width:14%'>".$row["EmployeeCode"]."</td></tr>
           ";
         }
         echo"
@@ -159,28 +163,44 @@
     }
     else if($type == "sale"){
       //search_sale
-      $sql_s_s = "select * from sale_order AS S,so_detail AS D where S.SONo = '".$SONo."' AND D.SONo = S.SONo;";
-      $result_s_s = mysqli_query($conn, $sql_s_s);
+      if(!empty($SONo)){
+        $sql_s_s = "select * from sale_order AS S, so_detail AS D where S.SONo = '".$SONo."' AND S.SONo = D.SONo;";
+        $result_s_s = mysqli_query($conn, $sql_s_s);
+      }
+      else if(!empty($client)){
+        $sql_s_s = "select * from sale_order AS S, so_detail AS D where S.ClientCode = '".$client."' AND S.SONo = D.SONo;";
+        $result_s_s = mysqli_query($conn, $sql_s_s);
+      }
+      else if(!empty($employee)){
+        $sql_s_s = "select * from sale_order AS S, so_detail AS D where P.EmployeeCode = '".$employee."' AND S.SONo = D.SONo;";
+        $result_s_s = mysqli_query($conn, $sql_s_s);
+      }
+      else{
+        echo "<script>
+                 alert('Nothing input');
+            </script>";
+      }
+
       if(mysqli_num_rows($result_s_s) > 0){
+        echo
+        "<table class=\"table\">
+        <tr>
+        <th>Sale Order</th>
+        </tr>
+          <tbody>
+        <tr> <td style='width:14%'>SONo</td> <td style='width:14%'>Date</td> <td style='width:14%'>ItemCode</td> <td style='width:14%'>BatchNo</td>
+             <td style='width:14%'>Quantity</td>  <td style='width:14%'>ClientCode</td> <td style='width:14%'>EmployeeCode</td> </tr>
+         ";
         while($row = mysqli_fetch_assoc($result_s_s)){
           echo
-          "<table class=\"table\">
-          <thead>
-          <tr>
-          <th>Purchase Order</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr> <td>SNo : </td><td>".$row["SONo"]."</td></tr>
-          <tr> <td>Date :</td><td>".$row["Date"]."</td></tr>
-          <tr> <td>ItemCode :</td><td>".$row["ItemCode"]."</td></tr>
-          <tr> <td>BatchNo :</td><td>".$row["BatchNo"]."</td></tr>
-          <tr> <td>Quantity :</td><td>".$row["Qty"]."</td></tr>
-          <tr> <td>ClientCode :</td><td>".$row["ClientCode"]."</td></tr>
-          <tr> <td>EmployeeCode :</td><td>".$row["EmployeeCode"]."</td></tr>
-          </tbody>
-          </table>";
+          "
+          <td style='width:14%'>".$row["SONo"]."</td><td style='width:14%'>".$row["Date"]."</td> <td style='width:14%'>".$row["ItemCode"]."</td> <td style='width:14%'>".$row["BatchNo"]."</td>
+          <td style='width:14%'>".$row["Qty"]."</td><td style='width:14%'>".$row["ClientCode"]."</td><td style='width:14%'>".$row["EmployeeCode"]."</td></tr>
+          ";
         }
+        echo"
+        </tbody>
+        </table>";
       }
       else{
         echo "Search failed";
