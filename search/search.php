@@ -51,7 +51,7 @@
   }
   function show(){
       global $conn,$ItemCode,$search,$BatchNo;
-      $sql_show = "select * from batch where  ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY)    ;" ;
+      $sql_show = "select  * from batch  where   ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 90 DAY) ;" ;
       $result_show = mysqli_query($conn, $sql_show);
       $getDate = date("y-m-d");
       while($row = mysqli_fetch_assoc($result_show)){
@@ -62,7 +62,7 @@
           
           echo
           "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td></tr>";
+          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
       
           
           
@@ -79,7 +79,7 @@
     if(!empty($ItemCode)){
     if($type == "One Week"){
   
-        $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 7 DAY)    ;" ;
+        $sql_d = "select * from batch where ItemCode = '".$ItemCode."' AND ExpiredDate between curdate() AND DATE_ADD(curdate(), INTERVAL 7 DAY)  ;" ;
         $result_d = mysqli_query($conn, $sql_d);
 
             while($row = mysqli_fetch_assoc($result_d)){
@@ -90,7 +90,7 @@
           
               echo
               "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+    <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
          
        
             }
@@ -112,7 +112,7 @@
                         echo
                       
                         "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+    <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
                     
                 }
                 echo"
@@ -134,7 +134,7 @@
                           
                             echo
                             "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+             <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
                    }
                    echo " </tbody>
             </table>";
@@ -155,7 +155,7 @@
                     $a = round($difff,0);
                         echo
                         "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+              <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
                     
                 }
                 echo " </tbody>
@@ -177,7 +177,7 @@
                 
                 echo
                 "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+             <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
      
             }
              echo " </tbody>
@@ -197,7 +197,7 @@
                     echo
                     
                     "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+             <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
                 
             }
             echo " </tbody>
@@ -218,7 +218,7 @@
                     
                     echo
                     "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+              <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
                 
             }
             echo " </tbody>
@@ -240,7 +240,7 @@
      
                     echo
                     "
-          <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td>";
+            <td>".$row["ItemCode"]."</td><td>".$row["BatchNo"]."</td> <td>".$row["ExpiredDate"]."</td> <td>".$a."</td><tr>";
  
       
                 
