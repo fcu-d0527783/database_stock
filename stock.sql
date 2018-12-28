@@ -176,7 +176,7 @@ INSERT INTO `product` (`ItemCode`, `ItemDescription`, `ItemType`, `Brand`, `Loca
 ('C0002', 'Facial Wash', 'Cleaser', 'Dr.Satin', 'BA-1F-1D', 1, 1),
 ('L0003', 'Whitening Lotion', 'Lotion', 'Dr.Satin', 'BA-1F-1D', 1, 1),
 ('L0018', 'Hydrating Lotion', 'Lotion', 'Naruko', 'BA-1F-1B', 1, 1),
-('I0033', 'Moisture Lotion', 'Lotion', 'Aesop ', 'BA-1F-1C', 1, 1),
+('I0033', 'Moisture Lotion', 'Lotion', 'Shiseido ', 'BA-1F-1C', 1, 1),
 ('W1200', 'Refreshing Primer', 'Primer', 'CPB ', 'BA-1F-1C', 1, 1),
 ('MISS', 'Missing Product', NULL, NULL, NULL, 1, 0),
 ('S0001', 'Hydrating Sunblock', 'Sunblock', 'Avene', 'BA-2F-2D', 1, 1),
@@ -302,7 +302,10 @@ CREATE TABLE `supplier` (
 
 INSERT INTO `supplier` (`SupplierCode`, `CompanyName`, `Address`, `ContactNo`, `Email`, `Remark`) VALUES
 ('C004', 'Creative Company Limited', '168, MingChuan Road, ChungXi Dist., 700 Tainan', '06-2266680', 'creativeaswecan@yahoo.com', 'Naruko'),
+('R001', 'Shiseido Company, Limited', '1-6-2, Higashi-shimbashi, Minato-ku, Tokyo 105-8310, Japan', '+1-883-572-5111', 'customerservice@shiseido.com', 'Shiseido'),
+('S005', 'Procter & Gamble (P&G) ', '1-2 Procter and Gamble Plaza,Cincinnati,OH 45201,United States', '1-866-678-1770', 'customerservice@shop.sk-ii.com', 'SK-II'),
 ('D001', 'Delloyd Industries (M) Sdn Bhd', 'Lot 33004/5, Jalan Kebun, Techno Industrial Park, 42450 Klang, Selangor, Malaysia', '+60 3-5163 6888', 'sales@delloyd.com', 'Dr.Satin'),
+('B111', 'Shiseido Company, Limited', '1-6-2, Higashi-shimbashi, Minato-ku, Tokyo 105-8310, Japan', '1-888-678-5574', 'customercare@cledepeaubeaute.com', 'CPB'),
 ('T005', '', '', '', '', ''),
 ('W005', 'Well Done', '', '', '', '');
 
